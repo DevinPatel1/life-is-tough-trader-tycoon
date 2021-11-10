@@ -81,7 +81,7 @@ public class Player {
     
     /**
      * Adds or subtracts the owned shares based on whether the player buys or sells.
-     * @param indexOfBusiness Stock symbol of business in question
+     * @param stockSymbol Stock symbol of business in question
      * @param shares Positive if buying shares, Negative if selling shares
      */
     public void updateShares(BusinessSymbol stockSymbol, int shares) {

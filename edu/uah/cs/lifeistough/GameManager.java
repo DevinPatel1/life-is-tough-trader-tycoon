@@ -64,18 +64,57 @@ public class GameManager {
         return weekNumber;
     }
     
-    public void buyShare(BusinessSymbol index, int numberOfShares, int cost) {
-        
-    }
-    
-    public void sellShare(BusinessSymbol index, int numberOfShares, int cost) {
-        
-    }
-    
     public int checkWeeksBelowZero() {
         return weeksBelowZero;
     }
     
+    /**
+     * Buys the number of shares the player specifies according to the
+     *     current price of the business.
+     * @param index Stock symbol of the business
+     * @param numberOfShares Number of shares to be bought
+     * @param cost
+     */
+    public void buyShare(BusinessSymbol index, int numberOfShares, int cost) { // Do we need cost?
+        // Ensures the number of shares are positive
+        numberOfShares = Math.abs(numberOfShares);
+
+        // Calculates cost of shares being bought
+        int totalCost = numberOfShares * businesses[index.index].getPrice();
+        
+        // Updates player's bank and shares
+        player.updateBank(-1*totalCost);
+        player.updateShares(index, numberOfShares);
+
+        // Updates business's available shares
+        businesses[index.index].changeSharesAvailable(-1*numberOfShares);
+    }
+    
+
+    /**
+     * Sells the number of shares the player specifies according to the
+     *     current price of the business.
+     * @param index Stock symbol of the business
+     * @param numberOfShares Number of shares to be sold
+     * @param cost
+     */
+    public void sellShare(BusinessSymbol index, int numberOfShares, int cost) { // Do we need cost?
+        // Ensures the number of shares are positive
+        numberOfShares = Math.abs(numberOfShares);
+
+        // Calculates cost of shares being sold
+        int totalCost = numberOfShares * businesses[index.index].getPrice();
+        
+        // Updates player's bank and shares
+        player.updateBank(totalCost);
+        player.updateShares(index, (-1*numberOfShares) );
+
+        // Updates business's available shares
+        businesses[index.index].changeSharesAvailable(numberOfShares);
+    }
+    
+    
+    // Do we need this?
     public String[] getListOfBusinessCodes() {
         
         String[] list = new String[businesses.length];
@@ -160,20 +199,21 @@ public class GameManager {
         //      if business.getTag = currentevent tag
         //
         
+        Expense expense = expenses.generateExpense();
+        NewsEvent event = events.generateEvent();
+
         currentState = GameState.NEWS_SCREEN;
         updateScreen();
     }
-    
+
     public NewsEvent generateEvent() {
         
-        return NewsEventHandler.generateEvent();
-        
+        return events.generateEvent();
     }
     
     public Expense generateExpense() {
         
         return expenses.generateExpense();
-        
     }
     
     private void updateScreen() {
