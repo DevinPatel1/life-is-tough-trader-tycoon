@@ -127,6 +127,22 @@ public class Business {
         sharesAvailable += changeOfShares;
     }
 
+
+    /**
+     * Creates a deep copy of the business class.
+     * @return Copy of the business as a separate object
+     */
+    public Business clone(){
+        Tags[] clonedTags = new Tags[tags.length];
+
+        for(int i = 0; i < tags.length ; i++){
+            clonedTags[i] = tags[i];
+        }
+
+        Business clone = new Business(this.name, this.description, this.currentPrice, this.sharesAvailable, clonedTags);
+        return clone;
+    }
+
     private int currentPrice;
     
     private int previousPrice;

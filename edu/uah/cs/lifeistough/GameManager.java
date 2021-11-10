@@ -57,7 +57,7 @@ public class GameManager {
     }
     
     public Business getBusinessCopy(BusinessSymbol index) {
-        return businesses[index].clone();
+        return businesses[index.index].clone();
     }
     
     public int getWeekNumber() {
