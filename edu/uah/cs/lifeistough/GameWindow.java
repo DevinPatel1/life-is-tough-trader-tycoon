@@ -1,15 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package stocksimfinal;
+* Devin Patel, Luke Farris, Dominic Kenyon, Corey Clayborn, Ben Johnson
+* Team 4
+* CS 321 - 02
+* Intro to OOP - Java
+* December 1, 2021
+* Description: See Javadoc comment below
+*/
+
+package edu.uah.cs.lifeistough;
 
 import javax.swing.JFrame;
 
 /**
  *
- * @author luked
+ * @author Luke Farris
  */
 public class GameWindow extends JFrame {
 

@@ -1,9 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package stocksimfinal;
+* Devin Patel, Luke Farris, Dominic Kenyon, Corey Clayborn, Ben Johnson
+* Team 4
+* CS 321 - 02
+* Intro to OOP - Java
+* December 1, 2021
+* Description: See Javadoc comment below
+*/
+
+package edu.uah.cs.lifeistough;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -23,7 +27,7 @@ import javax.swing.border.BevelBorder;
 
 /**
  *
- * @author luked
+ * @author Luke Farris
  */
 public class TitleScreen extends JPanel{
     
@@ -86,7 +90,7 @@ public class TitleScreen extends JPanel{
             case 0:
                 return Difficulties.EASY;
             case 1:
-                return Difficulties.MEDIUM;
+                return Difficulties.NORMAL;
             default:
                 return Difficulties.HARD;
             
@@ -110,7 +114,7 @@ public class TitleScreen extends JPanel{
         
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("Picture for picture.png"));
+            img = ImageIO.read(new File("edu\\uah\\cs\\lifeistough\\logo.png"));
         } catch (IOException e) {
             
         }       

@@ -42,7 +42,7 @@ public class GameManager {
         window = aWindow;
         titleScreen = new TitleScreen(this);
         
-        //initBusinesses();
+        initBusinesses();
         
         window.setContentPane(titleScreen);
         window.pack();
@@ -61,7 +61,7 @@ public class GameManager {
         return player.getBusinessShares(index);
     }
     
-    public int setDifficulty(Difficulties aDifficulty){
+    public void setDifficulty(Difficulties aDifficulty){
         difficulty = aDifficulty;
     }
     
