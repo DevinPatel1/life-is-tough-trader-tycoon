@@ -37,7 +37,16 @@ public class GameManager {
     
     public static final Random RNG = new Random();
     
-    GameManager(GameWindow aWindow) {      
+    GameManager(GameWindow aWindow) {   
+        
+        window = aWindow;
+        titleScreen = new TitleScreen(this);
+        
+        //initBusinesses();
+        
+        window.setContentPane(titleScreen);
+        window.pack();
+        
     }
     
     public String getPlayerName() {
@@ -181,7 +190,8 @@ public class GameManager {
     
     public void endGame() {
         
-        //display end game
+        window.dispose();
+    
     }
 
 
