@@ -77,6 +77,11 @@ public class GameManager {
         return weeksBelowZero;
     }
     
+
+    public int getCost() {
+        
+    }
+
     /**
      * Buys the number of shares the player specifies according to the
      *     current price of the business.
@@ -122,21 +127,6 @@ public class GameManager {
         businesses[index.index].changeSharesAvailable(numberOfShares);
     }
     
-    
-    // Do we need this?
-    public String[] getListOfBusinessCodes() {
-        
-        String[] list = new String[businesses.length];
-        
-        for(int i = 0; i<businesses.length; i++){
-            
-            list[i] = businesses[i].getSymbol();
-            
-        }
-        
-        return list;
-        
-    }
     
     public void startGame() {
         
