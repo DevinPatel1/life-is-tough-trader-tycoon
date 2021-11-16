@@ -7,7 +7,7 @@
 * Description: See Javadoc comment below
 */
 
-import edu.uah.cs.lifeistough.*;
+import edu.uah.cs.lifeistough.GameWindow;
 
 /**
  * Runs the game.

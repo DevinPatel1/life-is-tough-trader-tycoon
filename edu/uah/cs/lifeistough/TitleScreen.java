@@ -25,7 +25,10 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
 /**
- *
+ * This JPanel is the first window that the player sees.
+ * It allows the player to select a difficulty, enter their name,
+ *     quit the game, view instructions, or start the game.
+ * 
  * @author Luke Farris
  */
 public class TitleScreen extends JPanel{
@@ -45,14 +48,18 @@ public class TitleScreen extends JPanel{
     private javax.swing.JButton instructionsButton;
     private javax.swing.JButton startButton;
     
-    
+    /**
+     * Constructs the window. Adds a reference to the game manager
+     * in order to transfer information to it.
+     * @param aManager Reference to the backend class GameManager
+     */
     public TitleScreen(GameManager aManager){
         
         manager = aManager;
-        init();
-        
+        init(); // Builds the screen
     }
     
+    // Upon selection, this creates a dialog box that displays instructions
     private void openInstructions() {
         
         JDialog frame = new JDialog();
@@ -64,24 +71,34 @@ public class TitleScreen extends JPanel{
         
     }
     
+    // Upon selection, this starts the game based on the chosen difficulty.
     private void startGame() {
         
         manager.startGame();
         
     }
     
+    // Upon selection, this closes the game window.
     private void closeGame() {
         
         manager.endGame();
         
     }
     
+    /**
+     * Accesses the player's name specified in the name field.
+     * @return The name specified by the Player. If no name is specified, Player is used.
+     */
     public String getNameField() {
         
         return nameField.getText();
         
     }
     
+    /**
+     * Accesses the difficulty chosen by the player.
+     * @return The difficulty chosen
+     */
     public Difficulties getDifficulty() {
         
         switch (difficultyBox.getSelectedIndex()){
@@ -92,17 +109,17 @@ public class TitleScreen extends JPanel{
                 return Difficulties.NORMAL;
             default:
                 return Difficulties.HARD;
-            
         }
-        
     }
     
+    // Builds the title screen
     private void init(){
         
         setLayout(new BorderLayout());
         
         //*******************************************************
-        
+        // Sets the title of the game and the image
+
         imageLabel = new javax.swing.JLabel();
         TitleLabel = new javax.swing.JLabel();
         
@@ -111,6 +128,7 @@ public class TitleScreen extends JPanel{
         TitleLabel.setText("Life is Tough: Trader Tycoon");
         add(TitleLabel, BorderLayout.PAGE_START);
         
+        // Inputs logo.png
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("edu\\uah\\cs\\lifeistough\\logo.png"));
@@ -122,6 +140,8 @@ public class TitleScreen extends JPanel{
         add(imageLabel, BorderLayout.LINE_START);
         
         //********************************************************
+        // Sets the difficulty drop-down select field
+
         JPanel fieldPanel = new JPanel();
         fieldPanel.setLayout(new GridBagLayout());
         
@@ -148,7 +168,8 @@ public class TitleScreen extends JPanel{
         fieldPanel.add(difficultyPanel, constr);
         
         //********************************************************
-        
+        // Sets the player name text field
+
         JPanel namePanel = new JPanel();
         
         nameLabel = new javax.swing.JLabel();
@@ -174,7 +195,10 @@ public class TitleScreen extends JPanel{
         add(fieldPanel, BorderLayout.CENTER);
         
         //********************************************************
-       
+        // Sets up the buttons
+
+
+        // Quit Button
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         
@@ -191,6 +215,8 @@ public class TitleScreen extends JPanel{
         
         buttonPanel.add(quitButton);
         
+
+        // Instructions dialog box button
         instructionsButton = new javax.swing.JButton("Instructions");
         instructionsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,6 +232,8 @@ public class TitleScreen extends JPanel{
         
         buttonPanel.add(instructionsButton);
         
+
+        // Start game button
         startButton = new javax.swing.JButton("Start");
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,6 +249,8 @@ public class TitleScreen extends JPanel{
         
         add(buttonPanel, BorderLayout.PAGE_END);
         
+        //********************************************************
+
         revalidate();
         repaint();
         

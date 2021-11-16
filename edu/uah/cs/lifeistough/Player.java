@@ -28,6 +28,7 @@ public class Player {
         aName = playerName;
         ownedShares = new int[numberOfBusinesses];
 
+        // Initializes the player's bank account based on the difficulty
         int startingBalance = 1000;
         
         if(aDifficulty == Difficulties.EASY) {

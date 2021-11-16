@@ -9,6 +9,8 @@
 
 package edu.uah.cs.lifeistough;
 
+import javax.swing.JPanel;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Color;
@@ -16,11 +18,14 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.Insets;
 
-import javax.swing.JPanel;
 
 /**
- *
- * @author Devin Patel and Ben Johnson
+ * This JPanel is responsible for showing the player a summary of what news event affected the businesses
+ *     and any expenses charged to their bank account. Their current bank balance is also displayed, and
+ *     the player may return to the stock screen by choosing that option on the interface.
+ * 
+ * @author Devin Patel
+ * @author Ben Johnson
  */
 public class NewsScreen extends JPanel
 {
@@ -40,7 +45,15 @@ public class NewsScreen extends JPanel
     private String expenseReason;
     private int expenseAmount;
     
-    
+
+    /**
+     * Constructs the window. Adds a reference to the game manager as well as the
+     *     news event and expense information.
+     * @param aManager Reference to the backend class GameManager
+     * @param aEvent Event chosen in GameManager
+     * @param aExpenseReason Expense reason chosen in GameManager
+     * @param aExpenseAmount Expense amount generated in GameManager
+     */
     public NewsScreen(GameManager aManager, NewsEvent aEvent, String aExpenseReason, int aExpenseAmount)
     {
         manager = aManager;
@@ -51,6 +64,7 @@ public class NewsScreen extends JPanel
         buildScreen();
     }
 
+    // Tells the game to pull up the stock screen when the continue button is pressed.
     private void continueButtonPressed()
     {
         manager.goToStockScreen();
@@ -64,6 +78,7 @@ public class NewsScreen extends JPanel
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
+        // Sets base constants for inset bounds
         int topInset = 10;
         int leftInset = 10;
         int bottomInset = 10;
@@ -133,6 +148,8 @@ public class NewsScreen extends JPanel
         weekNumber = new javax.swing.JLabel();
         
         weekNumber.setFont(new java.awt.Font("Tahoma", 0, 28));
+
+        // Sets text to Week #
         weekNumber.setText("Week " + Integer.toString(manager.getWeekNumber()));
 
         constraints.gridx = 5;
@@ -150,6 +167,8 @@ public class NewsScreen extends JPanel
         updatedPlayerBalance = new javax.swing.JTextArea();
         
         updatedPlayerBalance.setFont(new java.awt.Font("Tahoma", 0, 22));
+
+        // Sets text to Bank Balance: #
         updatedPlayerBalance.setText("Bank Balance:\n" + Integer.toString(manager.getPlayerBank()));
 
         constraints.gridx = 5;
@@ -187,8 +206,9 @@ public class NewsScreen extends JPanel
         
         add(buttonPanel, constraints);
         
+        //********************************************************
+
         revalidate();
         repaint();
-        
     }
 }

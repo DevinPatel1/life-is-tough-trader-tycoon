@@ -36,7 +36,11 @@ public class GameManager {
     
     public static final Random RNG = new Random();
     
-    GameManager(GameWindow aWindow) {   
+    /**
+     * Initializes the title screen and keeps a reference to the JFrame window.
+     * @param aWindow The JFrame window that information will be pushed to
+     */
+    GameManager(GameWindow aWindow) {
         
         window = aWindow;
         titleScreen = new TitleScreen(this);
@@ -45,6 +49,9 @@ public class GameManager {
         window.pack();
     }
 
+    /**
+     * Initializes businesses and handlers based on the difficulty selected from the title screen.
+     */
     public void startGame() {
         Difficulties difficulty = titleScreen.getDifficulty();
         
@@ -53,31 +60,57 @@ public class GameManager {
         businesses = new Business[6];
         initBusinesses();
         initHandlers(difficulty);
-        player = new Player(titleScreen.getName(), difficulty, businesses.length);
+        player = new Player(titleScreen.getNameField(), difficulty, businesses.length);
         
         goToStockScreen();
     }
     
+    /**
+     * Accesses the player's name they specified on the title screen.
+     * @return Player's name
+     */
     public String getPlayerName() {
         return player.getPlayerName();
     }
     
+    /**
+     * Accesses the player's current bank balance.
+     * @return Player's bank balance
+     */
     public int getPlayerBank() {
         return player.getBank();
     }
     
-    public int getPlayerOwnedShares(BusinessSymbol index){
-        return player.getBusinessShares(index);
+    /**
+     * Accesses the number of owned shares of the specified business.
+     * @param symbol The symbol of the business
+     * @return The number of shares from that business the player owns
+     */
+    public int getPlayerOwnedShares(BusinessSymbol symbol){
+        return player.getBusinessShares(symbol);
     }
     
-    public Business getBusinessCopy(BusinessSymbol index) {
-        return businesses[index.index].clone();
+    /**
+     * Generates a clone of the specified business.
+     * @param symbol The symbol of the business
+     * @return A copy of the business as a separate object
+     */
+    public Business getBusinessCopy(BusinessSymbol symbol) {
+        return businesses[symbol.index].clone();
     }
     
+    /**
+     * Accesses the number of weeks progressed in the game.
+     * @return Number of weeks transpired
+     */
     public int getWeekNumber() {
         return weekNumber;
     }
     
+    /**
+     * Accesses the number of consecutive weeks the player has with a negative bank balance.
+     * @return Number of weeks in the negatives
+     */
     public int checkWeeksBelowZero() {
         return weeksBelowZero;
     }
@@ -138,18 +171,31 @@ public class GameManager {
         businesses[symbol.index].changeSharesAvailable(numberOfShares);
     }
     
-    
-    public void goToNewsScreen(NewsEvent event, String aExpenseReason, int aExpenseAmount) {
+    // Sends the player to the News Screen
+    private void goToNewsScreen(NewsEvent event, String aExpenseReason, int aExpenseAmount) {
         newsScreen = new NewsScreen(this, event, aExpenseReason, aExpenseAmount);
         currentState = GameState.NEWS_SCREEN;
         updateScreen();
     }
     
+
+    /**
+     * Sends the player to the stock screen.
+     */
     public void goToStockScreen() {
         currentState = GameState.STOCK_SCREEN;
         updateScreen();
     }
     
+
+    /**
+     * Progresses the game to the next week. Business prices are recalculated,
+     *     News Events generate business fortune modifiers, and expenses are
+     *     applied to the player's bank account. This information is displayed
+     *     to the player on the News Screen. If the player's bank account is
+     *     in the negatives for three weeks in a row, the player loses and the
+     *     game ends.
+     */
     public void goToNextWeek() {
         
         // Increments week number
@@ -185,6 +231,9 @@ public class GameManager {
         goToNewsScreen(event, expenseReason, expenseAmount);
     }
     
+    /**
+     * Sends the player to the title screen.
+     */
     public void returnToTitleScreen() {
         
         //delete player?
@@ -193,13 +242,15 @@ public class GameManager {
         updateScreen();
     }
     
+
+    /**
+     * Ends the game by disposing of the JFrame
+     */
     public void endGame() {
-        
         window.dispose();
-    
     }
 
-
+    // Updates business prices and fortunes whenever the player progresses to the next week
     private void generateBusinessWeeklyUpdate(NewsEvent event) {
 
         // Updates each businesses's price and fortune
@@ -229,6 +280,7 @@ public class GameManager {
 
     }
     
+    // Pushes the JPanels to the JFrame
     private void updateScreen() {
         
         switch(currentState){
@@ -249,12 +301,14 @@ public class GameManager {
                 
     }
 
+    // Initializes NewsEventHandler and ExpenseHandler
     private void initHandlers(Difficulties difficulty)
     {
         events = new NewsEventHandler(difficulty);
         expenses = new ExpenseHandler(difficulty);
     }
-    
+
+    // Initializes each business in the array of businesses    
     private void initBusinesses()
     {
         // Business 1 - Farmers Mart (FRM)
