@@ -20,12 +20,12 @@ public class GameWindow extends JFrame {
     GameManager manager;
     
     public GameWindow(){
-        setTitle("StockSim");
+        setTitle("Life is Tough: Trader Tycoon");
         setSize(50, 50);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //setResizable(false);
-        manager = new GameManager(this);
+        //manager = new GameManager(this);
         //manager.UpdateScreen();
     }
     

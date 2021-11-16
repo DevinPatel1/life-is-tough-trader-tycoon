@@ -13,7 +13,11 @@ package edu.uah.cs.lifeistough;
  * Symbols will be used as an indexing method for each of the
  *     businesses in GameManager.
  * 
- * @author CS 321 - Team 4
+ * @author Devin Patel
+ * @author Luke Farris
+ * @author Dominic Kenyon
+ * @author Corey Clayborn
+ * @author Ben Johnson
  */
 public enum BusinessSymbol
 {

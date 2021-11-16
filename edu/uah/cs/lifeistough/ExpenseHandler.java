@@ -30,7 +30,7 @@ public class ExpenseHandler {
         float howdifficult;
         
         if (aDifficulty == Difficulties.EASY)
-            howdifficult = (float)0.5;
+            howdifficult = (float) 0.5;
          else if(aDifficulty == Difficulties.HARD)
             howdifficult = (float) 1.5;
         else
@@ -57,12 +57,12 @@ public class ExpenseHandler {
 
     // Template Expense - The numbers -10 and -1 are base bounds for rng
     private void addTemplateExpense(float factor){
-        String reasonForExpense = "temp name";
+        String reasonForExpense = "Expense name";
         
         int lowerBound = Math.round(-10 * factor);
         int upperBound = Math.round(-1 * factor);
         
-        Expense expense = new Expense(reasonForExpense,upperBound,lowerBound);
+        Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
         expenses.add(expense);
     }
     

@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -109,7 +108,7 @@ public class TitleScreen extends JPanel{
         
         
         TitleLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); 
-        TitleLabel.setText("StockSimGame");
+        TitleLabel.setText("Life is Tough: Trader Tycoon");
         add(TitleLabel, BorderLayout.PAGE_START);
         
         BufferedImage img = null;
@@ -137,7 +136,7 @@ public class TitleScreen extends JPanel{
         
         
         String difficulties[] = {"Easy", "Medium", "Hard"};
-        difficultyBox = new javax.swing.JComboBox(difficulties);
+        difficultyBox = new javax.swing.JComboBox<String>(difficulties);
                 
         difficultyPanel.add(difficultyBox);
                 

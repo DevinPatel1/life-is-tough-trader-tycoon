@@ -14,7 +14,11 @@ package edu.uah.cs.lifeistough;
  *     in order to delineate which event will affect which business when
  *     the player progresses to the next week.
  * 
- * @author CS 321 - Team 4
+ * @author Devin Patel
+ * @author Luke Farris
+ * @author Dominic Kenyon
+ * @author Corey Clayborn
+ * @author Ben Johnson
  */
 public enum Tags
 {

@@ -20,7 +20,6 @@ public class GameManager {
     
     private Player player;
     private Business[] businesses;
-    private Difficulties difficulty;
     
     private ExpenseHandler expenses;
     private NewsEventHandler events;
@@ -42,11 +41,23 @@ public class GameManager {
         window = aWindow;
         titleScreen = new TitleScreen(this);
         
-        initBusinesses();
-        
         window.setContentPane(titleScreen);
         window.pack();
         
+        startGame();
+    }
+
+    public void startGame() {
+        Difficulties difficulty = titleScreen.getDifficulty();
+        
+        // Initializes businesses array, each business in the array,
+        //     news event and expense handlers, and the player
+        businesses = new Business[6];
+        initBusinesses();
+        initHandlers(difficulty);
+        player = new Player(titleScreen.getName(), difficulty, businesses.length);
+        
+        goToStockScreen();
     }
     
     public String getPlayerName() {
@@ -59,10 +70,6 @@ public class GameManager {
     
     public int getPlayerOwnedShares(BusinessSymbol index){
         return player.getBusinessShares(index);
-    }
-    
-    public void setDifficulty(Difficulties aDifficulty){
-        difficulty = aDifficulty;
     }
     
     public Business getBusinessCopy(BusinessSymbol index) {
@@ -78,96 +85,104 @@ public class GameManager {
     }
     
 
-    public int getCost() {
-        
+    /**
+     * Returns the cost based on the number of shares bought/sold.
+     * @param symbol Stock symbol of the business
+     * @param numberOfShares Number of shares to be used in calculation
+     * @return Value of the shares
+     */
+    public int getCost(BusinessSymbol symbol, int numberOfShares) {
+        // Ensures the number of shares are positive
+        numberOfShares = Math.abs(numberOfShares);
+
+        // Calculates cost of shares
+        int totalCost = numberOfShares * businesses[symbol.index].getPrice();
+
+        return totalCost;
     }
 
     /**
      * Buys the number of shares the player specifies according to the
      *     current price of the business.
-     * @param index Stock symbol of the business
+     * @param symbol Stock symbol of the business
      * @param numberOfShares Number of shares to be bought
      * @param cost
      */
-    public void buyShare(BusinessSymbol index, int numberOfShares, int cost) { // Do we need cost?
-        // Ensures the number of shares are positive
-        numberOfShares = Math.abs(numberOfShares);
-
-        // Calculates cost of shares being bought
-        int totalCost = numberOfShares * businesses[index.index].getPrice();
+    public void buyShare(BusinessSymbol symbol, int numberOfShares) {
+        // Calculates the cost of shares to buy
+        int totalCost = getCost(symbol, numberOfShares);
         
         // Updates player's bank and shares
         player.updateBank(-1*totalCost);
-        player.updateShares(index, numberOfShares);
+        player.updateShares(symbol, numberOfShares);
 
         // Updates business's available shares
-        businesses[index.index].changeSharesAvailable(-1*numberOfShares);
+        businesses[symbol.index].changeSharesAvailable(-1*numberOfShares);
     }
     
 
     /**
      * Sells the number of shares the player specifies according to the
      *     current price of the business.
-     * @param index Stock symbol of the business
+     * @param symbol Stock symbol of the business
      * @param numberOfShares Number of shares to be sold
      * @param cost
      */
-    public void sellShare(BusinessSymbol index, int numberOfShares, int cost) { // Do we need cost?
-        // Ensures the number of shares are positive
-        numberOfShares = Math.abs(numberOfShares);
-
+    public void sellShare(BusinessSymbol symbol, int numberOfShares) {
         // Calculates cost of shares being sold
-        int totalCost = numberOfShares * businesses[index.index].getPrice();
+        int totalCost = getCost(symbol, numberOfShares);
         
         // Updates player's bank and shares
         player.updateBank(totalCost);
-        player.updateShares(index, (-1*numberOfShares) );
+        player.updateShares(symbol, (-1*numberOfShares) );
 
         // Updates business's available shares
-        businesses[index.index].changeSharesAvailable(numberOfShares);
+        businesses[symbol.index].changeSharesAvailable(numberOfShares);
     }
     
     
-    public void startGame() {
-        
-        //Create Player Object, do initial generations
-        
-        currentState = GameState.STOCK_SCREEN;
-        updateScreen();
-        
-        
-    }
-    
-    public void goToNewsScreen() {
-        
-        //No logic, 
-        
+    public void goToNewsScreen(NewsEvent event, String aExpenseReason, int aExpenseAmount) {
+        newsScreen = new NewsScreen(this, event, aExpenseReason, aExpenseAmount);
         currentState = GameState.NEWS_SCREEN;
         updateScreen();
     }
     
     public void goToStockScreen() {
-        
-        //No logic
-        
         currentState = GameState.STOCK_SCREEN;
         updateScreen();
     }
     
     public void goToNextWeek() {
         
+        // Increments week number
+        weekNumber++;
+
+        // Checks for negative bank balance, resets weeks below zero if not negative
         if(getPlayerBank() < 0){
             weeksBelowZero++;
         }
+        else {
+            weeksBelowZero = 0;
+        }
         
+        // Checks to see if there has been more than 3 weeks with negative bank balance
         if(weeksBelowZero >= 3) {
             endGame();
         }
+
+        // Generates expenses and news events and sends player to the weekly news screen
+        NewsEvent event = events.generateEvent();
+        String expenseReason = expenses.generateExpense().getReason();
+        int expenseAmount = expenses.generateExpense().generateExpense();
+
+        // Updates the player's bank account with expenses
+        player.updateBank(expenseAmount);
         
-        generateBusinessWeeklyUpdate();
-                        
-        currentState = GameState.NEWS_SCREEN;
-        updateScreen();
+        // Updates businesses and player bank
+        generateBusinessWeeklyUpdate(event);
+
+        // Generates the news screen based on news event and expense
+        goToNewsScreen(event, expenseReason, expenseAmount);
     }
     
     public void returnToTitleScreen() {
@@ -185,35 +200,33 @@ public class GameManager {
     }
 
 
-    private void generateBusinessWeeklyUpdate() {
-        
-        //Expense expenseOne, expense two = eventHandler.generateEvent
-        //Set Week Screen parameters using expense
-        //Set week screen playerbank parameter 
-        //Modify player bank
-        //
-        //Event generation
-        //Set titleScreen parameters using event
-        //for all three events
-        //  for loop of all business
-        //      if business.getTag = currentevent tag
-        //
-        
-        Expense expense = expenses.generateExpense();
-        NewsEvent event = events.generateEvent();
+    private void generateBusinessWeeklyUpdate(NewsEvent event) {
 
-        currentState = GameState.NEWS_SCREEN;
-        updateScreen();
-    }
+        // Updates each businesses's price and fortune
+        for(int i = 0; i < businesses.length; i++)
+        {
+            // Updates the price for each business before fortune modifier is applied
+            businesses[i].generateNewPrice();
 
-    public NewsEvent generateEvent() {
-        
-        return events.generateEvent();
-    }
-    
-    public Expense generateExpense() {
-        
-        return expenses.generateExpense();
+            // Updates the fortune of each business
+            Tags[] businessTags = businesses[i].getTags();
+            Tags[] eventTags = event.getTags();
+
+            outerloop: // breaks out of the nested for loop once a matching tag is found
+            for(Tags eTag : eventTags)
+            {
+                for(Tags bTag : businessTags)
+                {
+                    // Once a matching tag is found, the fortune is modified
+                    if(bTag == eTag)
+                    {
+                        businesses[i].updateFortune((float) event.generateModifier());
+                        break outerloop;
+                    }
+                }
+            }
+        }
+
     }
     
     private void updateScreen() {
@@ -228,11 +241,17 @@ public class GameManager {
                 window.pack();
                 break;
             case NEWS_SCREEN:
-                window.setContentPane(weekScreen);
+                window.setContentPane(newsScreen);
                 break;
             default:
         }
                 
+    }
+
+    private void initHandlers(Difficulties difficulty)
+    {
+        events = new NewsEventHandler(difficulty);
+        expenses = new ExpenseHandler(difficulty);
     }
     
     private void initBusinesses()
