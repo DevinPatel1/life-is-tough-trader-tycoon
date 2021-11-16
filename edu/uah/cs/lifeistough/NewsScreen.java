@@ -15,6 +15,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.Insets;
+import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
@@ -26,12 +27,17 @@ public class NewsScreen extends JPanel
 {
     private GameManager manager;
     
+    private javax.swing.JPanel newsPanel;
     private javax.swing.JLabel newsTitle;
     private javax.swing.JTextArea newsDescription;
     
-    private javax.swing.JTextArea expenseInformation; // Includes reason and amount
+    private javax.swing.JPanel expensePanel;
+    private javax.swing.JLabel expenseTitle;
+    private javax.swing.JTextArea expenseReasonTextArea;
+    private javax.swing.JTextArea expenseAmountTextArea;
 
     private javax.swing.JLabel weekNumber;
+
     private javax.swing.JTextArea updatedPlayerBalance;
     
     private javax.swing.JButton continueButton;
@@ -63,33 +69,29 @@ public class NewsScreen extends JPanel
         //setBackground(new Color(150,0,0)); // Dark red
 
         setLayout(new GridBagLayout());
+
         GridBagConstraints constraints = new GridBagConstraints();
 
         int topInset = 10;
         int leftInset = 10;
-        int bottomInset = 10;
+        int bottomInset = 50;
         int rightInset = 10;
         constraints.insets = new Insets(topInset, leftInset, bottomInset, rightInset);
         
         //*******************************************************
-        // Sets the news title
+        // Sets the news panel
+        
+        newsPanel = new JPanel();
+        newsPanel.setLayout(new BorderLayout());
+
+        // News Title
         newsTitle = new javax.swing.JLabel();
         
         newsTitle.setFont(new java.awt.Font("Tahoma", 0, 36));
         newsTitle.setText("Breaking News: " + event.getName());
 
-        constraints.gridx = 0;
-        constraints.gridwidth = 4;
-        constraints.gridy = 0;
-        constraints.gridheight = 1;
-
-        constraints.fill = GridBagConstraints.BOTH;
-
-
-        add(newsTitle, constraints);
+        newsPanel.add(newsTitle, BorderLayout.NORTH);
         
-
-        //********************************************************
         // Sets the news description
         newsDescription = new javax.swing.JTextArea();
 
@@ -97,52 +99,32 @@ public class NewsScreen extends JPanel
         newsDescription.setEditable(false);
         newsDescription.setText(event.getHeadline());
 
+        newsPanel.add(newsDescription, BorderLayout.CENTER);
+
         constraints.gridx = 0;
-        constraints.gridwidth = 1;
-        constraints.gridy = 1;
-        constraints.gridheight = 2;
-
-
-        add(newsDescription, constraints);
-
-        //********************************************************
-        // Sets Expense information
-
-        String expenseMessage = "You have a new bill to pay." + "\n"
-                                + expenseReason + "\n"
-                                + "$" + Math.abs(expenseAmount) + " will be deducted from your bank account.";
-
-        expenseInformation = new javax.swing.JTextArea();
+        constraints.gridwidth = 4;
+        constraints.gridy = 0;
+        constraints.gridheight = 1;
         
-        expenseInformation.setFont(new java.awt.Font("Tahoma", 0, 18));
-        expenseInformation.setEditable(false);
-        expenseInformation.setText(expenseMessage);
+        constraints.fill = GridBagConstraints.BOTH;
 
-        constraints.gridx = 0;
-        constraints.gridwidth = 1;
-        constraints.gridy = 3;
-        constraints.gridheight = 2;
-
-        constraints.insets = new Insets(100, leftInset, bottomInset, rightInset);
-
-
-        add(expenseInformation, constraints);
+        add(newsPanel, constraints);
 
         //********************************************************
         // Sets the week number
-        
         weekNumber = new javax.swing.JLabel();
         
         weekNumber.setFont(new java.awt.Font("Tahoma", 0, 28));
         weekNumber.setText("Week " + Integer.toString(manager.getWeekNumber()));
 
-        constraints.gridx = 5;
+        constraints.gridx = 4;
         constraints.gridwidth = 1;
         constraints.gridy = 0;
         constraints.gridheight = 1;
 
-        constraints.insets = new Insets(topInset, 150, bottomInset, rightInset);
-
+        constraints.fill = GridBagConstraints.NONE;
+        constraints.anchor = GridBagConstraints.FIRST_LINE_END;
+        
         add(weekNumber, constraints);
 
         //********************************************************
@@ -150,17 +132,73 @@ public class NewsScreen extends JPanel
         
         updatedPlayerBalance = new javax.swing.JTextArea();
         
-        updatedPlayerBalance.setFont(new java.awt.Font("Tahoma", 0, 22));
+        updatedPlayerBalance.setFont(new java.awt.Font("Tahoma", 0, 28));
         updatedPlayerBalance.setText("Bank Balance:\n" + Integer.toString(manager.getPlayerBank()));
 
-        constraints.gridx = 5;
+        constraints.gridx = 4;
         constraints.gridwidth = 1;
-        constraints.gridy = 3;
+        constraints.gridy = 2;
         constraints.gridheight = 1;
 
-        constraints.insets = new Insets(topInset, 100, bottomInset, rightInset);
+        constraints.anchor = GridBagConstraints.PAGE_START;
 
         add(updatedPlayerBalance, constraints);
+
+        //********************************************************
+        // Sets Expense Panel
+
+        expensePanel = new javax.swing.JPanel();
+        expensePanel.setLayout(new GridBagLayout());
+        
+        GridBagConstraints expenseConstraints = new GridBagConstraints();
+        expenseConstraints.anchor = GridBagConstraints.CENTER;
+
+        // Expense Title
+        expenseTitle = new javax.swing.JLabel();
+        
+        expenseTitle.setFont(new java.awt.Font("Tahoma", 0, 28));
+        expenseTitle.setText("Bills:");
+
+        expenseConstraints.gridx = 0;
+        expenseConstraints.gridy = 0;
+
+        expenseConstraints.insets = new Insets(0, 0, 10, 0);
+
+        expensePanel.add(expenseTitle, expenseConstraints);
+
+
+        // Displays the reason for the expense
+        expenseReasonTextArea = new javax.swing.JTextArea();
+        
+        expenseReasonTextArea.setFont(new java.awt.Font("Tahoma", 0, 18));
+        expenseReasonTextArea.setEditable(false);
+        expenseReasonTextArea.setText(expenseReason);
+
+        expenseConstraints.gridx = 0;
+        expenseConstraints.gridy = 1;
+
+        expensePanel.add(expenseReasonTextArea, expenseConstraints);
+
+        // Displays the amount
+        expenseAmountTextArea = new javax.swing.JTextArea();
+
+        expenseAmountTextArea.setFont(new java.awt.Font("Tahoma", 0, 18));
+        expenseAmountTextArea.setEditable(false);
+        expenseAmountTextArea.setText("$"+Integer.toString(Math.abs(expenseAmount))+" will be deducted from your bank account.");
+
+        expenseConstraints.gridx = 0;
+        expenseConstraints.gridy = 2;
+
+        expensePanel.add(expenseAmountTextArea, expenseConstraints);
+
+        // Adds expense panel to main panel
+        constraints.gridx = 2;
+        constraints.gridwidth = 1;
+        constraints.gridy = 2;
+        constraints.gridheight = 1;
+
+
+        add(expensePanel, constraints);
 
         //********************************************************
         // Sets the continue button
@@ -181,10 +219,10 @@ public class NewsScreen extends JPanel
         
         buttonPanel.add(continueButton);
         
-        constraints.gridx = 5;
-        constraints.gridy = 10;
+        constraints.gridx = 4;
+        constraints.gridy = 4;
 
-        constraints.insets = new Insets(topInset, leftInset, bottomInset, rightInset);
+        expenseConstraints.insets = new Insets(0, 0, 0, 0);
         
         add(buttonPanel, constraints);
         
