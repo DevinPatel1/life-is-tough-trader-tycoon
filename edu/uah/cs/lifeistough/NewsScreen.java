@@ -53,7 +53,8 @@ public class NewsScreen extends JPanel
 
     private void continueButtonPressed()
     {
-        manager.goToStockScreen();
+        manager.returnToTitleScreen();
+        //manager.goToStockScreen();
     }
 
     
@@ -150,7 +151,7 @@ public class NewsScreen extends JPanel
         updatedPlayerBalance = new javax.swing.JTextArea();
         
         updatedPlayerBalance.setFont(new java.awt.Font("Tahoma", 0, 22));
-        updatedPlayerBalance.setText("Bank Balance:\n" + Integer.toString(manager.getWeekNumber()));
+        updatedPlayerBalance.setText("Bank Balance:\n" + Integer.toString(manager.getPlayerBank()));
 
         constraints.gridx = 5;
         constraints.gridwidth = 1;

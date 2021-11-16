@@ -25,7 +25,7 @@ public class GameManager {
     private NewsEventHandler events;
     private GameWindow window;
     
-    private StockScreen stockScreen;
+    //private StockScreen stockScreen;
     private NewsScreen newsScreen;
     private TitleScreen titleScreen;
     
@@ -55,7 +55,12 @@ public class GameManager {
         initHandlers(difficulty);
         player = new Player(titleScreen.getName(), difficulty, businesses.length);
         
-        goToStockScreen();
+        // For testing purposes
+        NewsEvent event = events.generateEvent();
+        Expense expense = expenses.generateExpense();
+
+        //goToStockScreen();
+        goToNewsScreen(event, expense.getReason(), expense.generateExpense());
     }
     
     public String getPlayerName() {
@@ -170,8 +175,8 @@ public class GameManager {
 
         // Generates expenses and news events and sends player to the weekly news screen
         NewsEvent event = events.generateEvent();
-        String expenseReason = expenses.generateExpense().getReason();
-        int expenseAmount = expenses.generateExpense().generateExpense();
+        Expense expense = expenses.generateExpense();
+        int expenseAmount = expense.generateExpense();
 
         // Updates the player's bank account with expenses
         player.updateBank(expenseAmount);
@@ -180,7 +185,7 @@ public class GameManager {
         generateBusinessWeeklyUpdate(event);
 
         // Generates the news screen based on news event and expense
-        goToNewsScreen(event, expenseReason, expenseAmount);
+        goToNewsScreen(event, expense.getReason(), expenseAmount);
     }
     
     public void returnToTitleScreen() {
@@ -235,7 +240,7 @@ public class GameManager {
                 window.pack();
                 break;
             case STOCK_SCREEN:
-                window.setContentPane(stockScreen);
+                //window.setContentPane(stockScreen);
                 window.pack();
                 break;
             case NEWS_SCREEN:
