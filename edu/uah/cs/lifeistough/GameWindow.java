@@ -25,7 +25,7 @@ public class GameWindow extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //setResizable(false);
-        //manager = new GameManager(this);
+        manager = new GameManager(this);
         //manager.UpdateScreen();
     }
     

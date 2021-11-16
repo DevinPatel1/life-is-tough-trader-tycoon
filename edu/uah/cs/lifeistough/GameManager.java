@@ -170,8 +170,10 @@ public class GameManager {
 
         // Generates expenses and news events and sends player to the weekly news screen
         NewsEvent event = events.generateEvent();
-        String expenseReason = expenses.generateExpense().getReason();
-        int expenseAmount = expenses.generateExpense().generateExpense();
+        
+        Expense expense = expenses.generateExpense();
+        String expenseReason = expense.getReason();
+        int expenseAmount = expense.generateExpense();
 
         // Updates the player's bank account with expenses
         player.updateBank(expenseAmount);
