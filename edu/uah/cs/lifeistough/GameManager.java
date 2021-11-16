@@ -43,8 +43,6 @@ public class GameManager {
         
         window.setContentPane(titleScreen);
         window.pack();
-        
-        startGame();
     }
 
     public void startGame() {
@@ -242,6 +240,7 @@ public class GameManager {
                 break;
             case NEWS_SCREEN:
                 window.setContentPane(newsScreen);
+                window.pack();
                 break;
             default:
         }
