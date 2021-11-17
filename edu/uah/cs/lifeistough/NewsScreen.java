@@ -97,8 +97,9 @@ public class NewsScreen extends JPanel
         int rightInset = 10;
         constraints.insets = new Insets(topInset, leftInset, bottomInset, rightInset);
         
-        Border lineBorder = new LineBorder(Color.BLACK, 5);
-        Border emptyBorder = new EmptyBorder(5,5,5,5);
+        //Border lineBorder = new LineBorder(Color.BLACK, 5);
+        Border emptyBorder = new EmptyBorder(8,8,8,8);
+        Border raisedEtched = new EtchedBorder(EtchedBorder.RAISED, reddishBrown, Color.BLACK);
 
         //*******************************************************
         // Sets the news panel
@@ -107,7 +108,8 @@ public class NewsScreen extends JPanel
         newsPanel.setLayout(new BorderLayout(0,10));
         newsPanel.setBackground(reddishBrown);
 
-        newsPanel.setBorder(lineBorder);
+        //newsPanel.setBorder(lineBorder);
+        newsPanel.setBorder(raisedEtched);
 
         // Breaking News
         breakingNews = new javax.swing.JLabel();
@@ -164,7 +166,8 @@ public class NewsScreen extends JPanel
         weekNumberPanel.setLayout(new BorderLayout());
 
         weekNumberPanel.setBackground(reddishBrown);
-        weekNumberPanel.setBorder(lineBorder);
+        //weekNumberPanel.setBorder(lineBorder);
+        weekNumberPanel.setBorder(raisedEtched);
 
         weekNumber = new javax.swing.JLabel();
         
@@ -193,7 +196,9 @@ public class NewsScreen extends JPanel
         updatedPlayerBalancePanel.setLayout(new BorderLayout());
 
         updatedPlayerBalancePanel.setBackground(reddishBrown);
-        updatedPlayerBalancePanel.setBorder(lineBorder);
+        //updatedPlayerBalancePanel.setBorder(lineBorder);
+        updatedPlayerBalancePanel.setBorder(raisedEtched);
+
 
         updatedPlayerBalance = new javax.swing.JTextArea();
         
@@ -222,7 +227,8 @@ public class NewsScreen extends JPanel
         expensePanel.setLayout(new GridBagLayout());
 
         expensePanel.setBackground(reddishBrown);
-        expensePanel.setBorder(lineBorder);
+        //expensePanel.setBorder(lineBorder);
+        expensePanel.setBorder(raisedEtched);
         
         GridBagConstraints expenseConstraints = new GridBagConstraints();
         expenseConstraints.anchor = GridBagConstraints.CENTER;
@@ -295,7 +301,7 @@ public class NewsScreen extends JPanel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         
-        continueButton = new javax.swing.JButton("Go to Stock Screen");
+        continueButton = new javax.swing.JButton(" Go to Stock Screen ");
         continueButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 continueButtonActionPerformed(evt);
@@ -306,15 +312,17 @@ public class NewsScreen extends JPanel
             }
         });
         
-        continueButton.setBorder(new BevelBorder(BevelBorder.RAISED));
-
-        buttonPanel.setBackground(reddishBrown);
-        buttonPanel.setBorder(new LineBorder(Color.BLACK, 3));
-
+        continueButton.setBorder(raisedEtched);
+        
+        buttonPanel.setBackground(darkRed);
+        //buttonPanel.setBorder(new LineBorder(Color.BLACK, 3));
+        
         buttonPanel.add(continueButton);
         
         constraints.gridx = 5;
-        constraints.gridy = 4;
+        constraints.gridwidth = 1;
+        constraints.gridy = 3;
+        constraints.gridheight = 1;
 
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_END;
@@ -323,6 +331,5 @@ public class NewsScreen extends JPanel
         
         revalidate();
         repaint();
-        
     }
 }
