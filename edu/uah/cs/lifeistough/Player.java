@@ -25,7 +25,7 @@ public class Player {
      */
     public Player(String aName, Difficulties aDifficulty, int numberOfBusinesses) {
         
-        aName = playerName;
+        playerName = aName;
         ownedShares = new int[numberOfBusinesses];
 
         // Initializes the player's bank account based on the difficulty

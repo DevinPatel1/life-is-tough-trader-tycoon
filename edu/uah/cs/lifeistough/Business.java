@@ -38,6 +38,8 @@ public class Business {
         previousPrice = firstPrice;
         sharesAvailable = totalShares;
         fortune = 0;
+        lowerBound = -10;
+        upperBound = 10;
         tags = aTags;
     }
     
@@ -100,7 +102,7 @@ public class Business {
      */
     public void generateNewPrice(){
         previousPrice = currentPrice;
-        currentPrice = lowerBound + GameManager.RNG.nextInt(upperBound - lowerBound);
+        currentPrice += lowerBound + GameManager.RNG.nextInt(upperBound - lowerBound);
     }
     
 
@@ -141,6 +143,22 @@ public class Business {
 
         Business clone = new Business(this.name, this.description, this.currentPrice, this.sharesAvailable, clonedTags);
         return clone;
+    }
+
+
+    /**
+     * Accesses the array of tags associated with this business as a String
+     * @return String of all the tags
+     */
+    public String getTagsAsString(){
+        String s = tags[0].string;
+
+        for(int i = 1; i < tags.length; i++){
+            s += ", ";
+            s += tags[i].string;
+        }
+
+        return s;
     }
 
     private int currentPrice;

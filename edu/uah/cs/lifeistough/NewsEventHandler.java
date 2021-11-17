@@ -151,8 +151,8 @@ public class NewsEventHandler
         String headline = "An unknown man just leaked evidence that the government had been collecting tons of data on its citizens without their knowledge.\n"
                         + "Everyone is now paranoid, and for once, they are putting their phones down for a while.";
         
-        int upperBound = Math.round(-4 * factor);
         int lowerBound = Math.round(-10 * factor);
+        int upperBound = Math.round(-4 * factor);
 
         Tags[] tags = {Tags.INTERNET};
 
@@ -168,8 +168,8 @@ public class NewsEventHandler
         String headline = "Young adults learning to build their self-esteem are now more outgoing and confident in public.\n"
                         + "Lines for restaurants and stores are getting waaaay longer.";
         
-        int upperBound = Math.round(7 * factor);
-        int lowerBound = Math.round(12 * factor);
+        int lowerBound = Math.round(7 * factor);
+        int upperBound = Math.round(12 * factor);
 
         Tags[] tags = {Tags.SOCIAL};
 
@@ -185,8 +185,8 @@ public class NewsEventHandler
         String headline = "Biology researchers have finally discovered the copy/paste function, which has led to groundbreaking research in animal cloning.\n"
                         + "So much Ctrl + C and Ctrl + V pressing has led to sore fingers and a significant decrease in the price of meat.";
         
-        int upperBound = Math.round(20 * factor);
-        int lowerBound = Math.round(40 * factor);
+        int lowerBound = Math.round(20 * factor);
+        int upperBound = Math.round(40 * factor);
 
         Tags[] tags = {Tags.FOOD};
 
@@ -202,8 +202,8 @@ public class NewsEventHandler
         String headline = "A viral Facebook post circulated on the internet warning people that metal boxes and utensils intensify 5G radiation and could increase the risk of cancer.\n"
                         + "While this was proved to be a load of malarkey fairly quickly, this did not stop everyone from boycotting their cars and other metal possessions.";
         
-        int upperBound = Math.round(-5 * factor);
         int lowerBound = Math.round(-10 * factor);
+        int upperBound = Math.round(-5 * factor);
 
         Tags[] tags = {Tags.DOMESTIC_GOODS, Tags.AUTOMOTIVE};
 

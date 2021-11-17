@@ -1,9 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package stocksimfinal;
+* Devin Patel, Luke Farris, Dominic Kenyon, Corey Clayborn, Ben Johnson
+* Team 4
+* CS 321 - 02
+* Intro to OOP - Java
+* December 1, 2021
+* Description: See Javadoc comment below
+*/
+
+package edu.uah.cs.lifeistough;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,8 +15,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -28,18 +30,21 @@ import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
- * @author luked
+ * @author Luke Farris
+ * @author Corey Clayborn
+ * @author Dominic Kenyon
  */
 class StockScreen extends JPanel {
  
     private GameManager manager;
-    private Business currentBusinessCopy = new Business();
+    private Business currentBusinessCopy;
     
     private JLabel busListLabel;
-    private JList busList;
+    private JList<BusinessSymbol> busList;
     private JButton busDetailButton;
     
     private JButton exitButton;
@@ -74,32 +79,27 @@ class StockScreen extends JPanel {
     public StockScreen(GameManager aManager){
         
         manager = aManager;
+        currentBusinessCopy = manager.getBusinessCopy(BusinessSymbol.values()[0]);
         init();
         
     }
     
     private void updateBusiness() {
-        try {
-            currentBusinessCopy = manager.getBusinessCopy(BusinessSymbol.values()[busList.getSelectedIndex()]);
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(StockScreen.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        currentBusinessCopy = manager.getBusinessCopy(BusinessSymbol.values()[busList.getSelectedIndex()]);
     }
     
     private void openBusinessDescription() {
                 
         JOptionPane.showMessageDialog(this,
             "" + BusinessSymbol.values()[busList.getSelectedIndex()] + "\n" + currentBusinessCopy.getDescription()
-                + "\n\nTags:\n           " + currentBusinessCopy.getTags(), "Business Details",
+                + "\n\nTags:\n           " + currentBusinessCopy.getTagsAsString(), "Business Details",
             JOptionPane.PLAIN_MESSAGE);
         
     }
     
     private void buyShare() {
         
-        manager.buyShare(busList.getSelectedIndex(), (int) shareQuantity.getValue(),
-                manager.getPlayerOwnedShares(busList.getSelectedIndex()) 
-                        * currentBusinessCopy.currentPrice());
+        manager.buyShare(BusinessSymbol.values()[busList.getSelectedIndex()], (int) shareQuantity.getValue());
         
         updateBusiness();
         changeSpinner();
@@ -108,9 +108,7 @@ class StockScreen extends JPanel {
     
     private void sellShare() {
         
-         manager.sellShare(busList.getSelectedIndex(), (int) shareQuantity.getValue(),
-                manager.getPlayerOwnedShares(busList.getSelectedIndex()) 
-                        * currentBusinessCopy.currentPrice());
+        manager.sellShare(BusinessSymbol.values()[busList.getSelectedIndex()], (int) shareQuantity.getValue());
          
         updateBusiness();
         changeSpinner();
@@ -128,22 +126,22 @@ class StockScreen extends JPanel {
         manager.goToNextWeek();
         
     }
-    
+
     private void goToNewsScreen() {
         
     
-        manager.goToWeekScreen();
+        manager.goToPreviousNewsScreen();
         
     }
     
-    
+
     /**
-     * updates button availability based on whether the transaction would be possible.
+     * Updates button availability based on whether the transaction would be possible.
      */
     private void changeSpinner() {
         
         if( (int) shareQuantity.getValue() 
-                > manager.getPlayerOwnedShares(busList.getSelectedIndex())){
+                > manager.getPlayerOwnedShares(BusinessSymbol.values()[busList.getSelectedIndex()])){
             
             sellSharesButton.setEnabled(false);
             
@@ -156,7 +154,7 @@ class StockScreen extends JPanel {
         
         if( (int) shareQuantity.getValue() > currentBusinessCopy.getSharesAvailable() 
                 || (int) shareQuantity.getValue() * 
-                manager.getPlayerOwnedShares(busList.getSelectedIndex()) 
+                manager.getPlayerOwnedShares(BusinessSymbol.values()[busList.getSelectedIndex()]) 
                 > manager.getPlayerBank()){
         
             buySharesButton.setEnabled(false);
@@ -167,9 +165,7 @@ class StockScreen extends JPanel {
             buySharesButton.setEnabled(true);
             
         }
-        
-        
-        
+
     }
     
     /**
@@ -214,17 +210,17 @@ class StockScreen extends JPanel {
         
         
         
-        busList = new JList(BusinessSymbol.values());
+        busList = new JList<BusinessSymbol>(BusinessSymbol.values());
         busList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         busList.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 12)));
         busList.setSelectedIndex(0);
         
         ListSelectionModel listSelectionModel = busList.getSelectionModel();
-        listSelectionModel.addListSelectionListener(new ListSelectionHandler() {
+        listSelectionModel.addListSelectionListener(new ListSelectionListener() {
         
             
             @Override
-            public void valueChanged(ListSelectionEvent e){  //***************************************************
+            public void valueChanged(ListSelectionEvent e){ 
                 updateBusiness();
             }
             
@@ -290,7 +286,7 @@ class StockScreen extends JPanel {
             
         });
         
-        constr.gridx = 20;
+        constr.gridx = 40;
         constr.gridy = 1;
         constr.gridwidth = 20;
         constr.gridheight = 1;
@@ -299,7 +295,7 @@ class StockScreen extends JPanel {
         transitionPanel.add(nextWeekButton, constr);
         
         
-        newsScreenButton = new JButton("<html><center>Go to<br>News Screen</html>");
+        newsScreenButton = new JButton("<html><center>View<br>Previous Week</html>");
         newsScreenButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -309,7 +305,7 @@ class StockScreen extends JPanel {
         });
 
         
-        constr.gridx = 40;
+        constr.gridx = 20;
         constr.gridy = 1;
         constr.gridwidth = 20;
         constr.gridheight = 1;
@@ -403,7 +399,7 @@ class StockScreen extends JPanel {
         valueOfInvestmentsField.setHorizontalAlignment(SwingConstants.RIGHT);
         valueOfInvestmentsField.setText("$" + 
                 (currentBusinessCopy.getPrice() 
-                * manager.getPlayerOwnedShares(busList.getSelectedIndex())));
+                * manager.getPlayerOwnedShares(BusinessSymbol.values()[busList.getSelectedIndex()])));
         
         constr.gridx = 5;
         
@@ -548,7 +544,7 @@ class StockScreen extends JPanel {
         valueOfInvestmentsField.setHorizontalAlignment(SwingConstants.RIGHT);
         valueOfInvestmentsField.setText("$" + 
                 (currentBusinessCopy.getPrice() 
-                * manager.getPlayerOwnedShares(busList.getSelectedIndex())));
+                * manager.getPlayerOwnedShares(BusinessSymbol.values()[busList.getSelectedIndex()])));
         
         constr.gridx = 5;
         
@@ -573,7 +569,7 @@ class StockScreen extends JPanel {
         ownedSharesField.setColumns(5);
         ownedSharesField.setHorizontalAlignment(SwingConstants.RIGHT);
                 
-        ownedSharesField.setText("" + manager.getPlayerOwnedShares(busList.getSelectedIndex()));
+        ownedSharesField.setText("" + manager.getPlayerOwnedShares(BusinessSymbol.values()[busList.getSelectedIndex()]));
         
         constr.gridx = 5;
         

@@ -13,13 +13,13 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
@@ -33,7 +33,7 @@ import javax.swing.border.BevelBorder;
  */
 public class TitleScreen extends JPanel{
     
-    private GameManager manager;
+    private final GameManager manager;
     
     private javax.swing.JLabel imageLabel;
     private javax.swing.JLabel TitleLabel;
@@ -62,18 +62,17 @@ public class TitleScreen extends JPanel{
     // Upon selection, this creates a dialog box that displays instructions
     private void openInstructions() {
         
-        JDialog frame = new JDialog();
-        
-        JOptionPane.showMessageDialog(frame,
-            "To play the game, guess and press buttons \nrandomly until something"
-                    + " good happens. Thanks!", "Instructions",
-            JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this,
+        "To play the game, guess and press buttons \nrandomly until something"
+                + " good happens. Thanks!", "Instructions",
+        JOptionPane.PLAIN_MESSAGE);
         
     }
     
     // Upon selection, this starts the game based on the chosen difficulty.
     private void startGame() {
         
+        nameField.setText(nameField.getText().trim());
         manager.startGame();
         
     }
@@ -101,15 +100,19 @@ public class TitleScreen extends JPanel{
      */
     public Difficulties getDifficulty() {
         
-        switch (difficultyBox.getSelectedIndex()){
-            
-            case 0:
-                return Difficulties.EASY;
-            case 1:
-                return Difficulties.NORMAL;
-            default:
-                return Difficulties.HARD;
-        }
+        return switch (difficultyBox.getSelectedIndex()) {
+            case 0 -> Difficulties.EASY;
+            case 1 -> Difficulties.NORMAL;
+            default -> Difficulties.HARD;
+        };
+
+    }
+
+    public void restartTitle(){
+
+        while(nameField.getText().charAt(0) == ' ')
+            nameField.setText(nameField.getText().substring(1));
+
     }
     
     // Builds the title screen
@@ -178,7 +181,15 @@ public class TitleScreen extends JPanel{
         namePanel.add(nameLabel);
         
         nameField = new javax.swing.JTextField();
-        nameField.setColumns(10);
+        nameField.setColumns(9);
+        nameField.setTransferHandler(null);
+        nameField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (nameField.getText().length() >= 15) // limit to between 1 and 15 characters
+                e.consume();
+            }
+        });
         nameField.setText("Player");
         
         namePanel.add(nameField);
@@ -204,11 +215,8 @@ public class TitleScreen extends JPanel{
         
         quitButton = new javax.swing.JButton("Quit");
         quitButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                QuitButtonActionPerformed(evt);
-            }
-
-            private void QuitButtonActionPerformed(ActionEvent evt) {
                 closeGame();
             }
         });
@@ -219,15 +227,10 @@ public class TitleScreen extends JPanel{
         // Instructions dialog box button
         instructionsButton = new javax.swing.JButton("Instructions");
         instructionsButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InstructionsButtonActionPerformed(evt);
+              openInstructions();
             }
-
-            private void InstructionsButtonActionPerformed(ActionEvent evt) {
-                openInstructions();
-            }
-
-            
         });
         
         buttonPanel.add(instructionsButton);
@@ -236,11 +239,8 @@ public class TitleScreen extends JPanel{
         // Start game button
         startButton = new javax.swing.JButton("Start");
         startButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StartButtonActionPerformed(evt);
-            }
-
-            private void StartButtonActionPerformed(ActionEvent evt) {
                 startGame();
             }
         });

@@ -16,7 +16,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 import java.awt.Insets;
 import java.awt.BorderLayout;
 
@@ -303,12 +302,9 @@ public class NewsScreen extends JPanel
         
         continueButton = new javax.swing.JButton(" Go to Stock Screen ");
         continueButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                continueButtonActionPerformed(evt);
-            }
-
-            private void continueButtonActionPerformed(ActionEvent evt) {
-                continueButtonPressed(); // User-defined Method above
+                continueButtonPressed();
             }
         });
         

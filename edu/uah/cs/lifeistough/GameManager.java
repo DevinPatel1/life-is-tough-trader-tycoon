@@ -61,7 +61,7 @@ public class GameManager {
         initBusinesses();
         initHandlers(difficulty);
         player = new Player(titleScreen.getNameField(), difficulty, businesses.length);
-        
+
         goToStockScreen();
     }
     
@@ -174,15 +174,26 @@ public class GameManager {
     // Sends the player to the News Screen
     private void goToNewsScreen(NewsEvent event, String aExpenseReason, int aExpenseAmount) {
         newsScreen = new NewsScreen(this, event, aExpenseReason, aExpenseAmount);
+
         currentState = GameState.NEWS_SCREEN;
         updateScreen();
     }
     
+    /**
+     * Sends the player to the previous week's news screen.
+     * Nothing happens if the player has not progressed weeks yet.
+     */
+    public void goToPreviousNewsScreen() {
+        if(newsScreen == null) return;
+        currentState = GameState.NEWS_SCREEN;
+        updateScreen();
+    }
 
     /**
      * Sends the player to the stock screen.
      */
     public void goToStockScreen() {
+        stockScreen = new StockScreen(this);
         currentState = GameState.STOCK_SCREEN;
         updateScreen();
     }

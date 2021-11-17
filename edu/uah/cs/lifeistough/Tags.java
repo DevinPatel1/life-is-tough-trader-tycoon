@@ -22,10 +22,17 @@ package edu.uah.cs.lifeistough;
  */
 public enum Tags
 {
-    INTERNET,
-    INTERNATIONAL,
-    AUTOMOTIVE,
-    FOOD,
-    SOCIAL,
-    DOMESTIC_GOODS;
+    INTERNET("Internet"),
+    INTERNATIONAL("International"),
+    AUTOMOTIVE("Automotive"),
+    FOOD("Food"),
+    SOCIAL("Social"),
+    DOMESTIC_GOODS("Domestic Goods");
+
+    public final String string;
+
+    private Tags(String s)
+    {
+        this.string = s;
+    }
 }
