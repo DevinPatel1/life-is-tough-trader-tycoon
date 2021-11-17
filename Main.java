@@ -7,13 +7,10 @@
 * Description: See Javadoc comment below
 */
 
-package edu.uah.cs.lifeistough;
+import edu.uah.cs.lifeistough.GameWindow;
 
 /**
- * When the player starts the game, they must choose a
- *     difficulty. This enum describes which difficulty
- *     was chosen so that each class that needs to know
- *     the difficulty can be constructed accordingly.
+ * Runs the game.
  * 
  * @author Devin Patel
  * @author Luke Farris
@@ -21,9 +18,10 @@ package edu.uah.cs.lifeistough;
  * @author Corey Clayborn
  * @author Ben Johnson
  */
-public enum Difficulties
+public class Main
 {
-    EASY,
-    NORMAL,
-    HARD;
+    public static void main(String[] args)
+    {
+        GameWindow game = new GameWindow();
+    }
 }

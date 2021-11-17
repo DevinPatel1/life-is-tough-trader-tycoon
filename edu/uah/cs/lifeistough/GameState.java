@@ -15,7 +15,11 @@ package edu.uah.cs.lifeistough;
  *     these symbols are being used to delineate
  *     which screen is being displayed.
  * 
- * @author CS 321 - Team 4
+ * @author Devin Patel
+ * @author Luke Farris
+ * @author Dominic Kenyon
+ * @author Corey Clayborn
+ * @author Ben Johnson
  */
 public enum GameState
 {

@@ -9,7 +9,6 @@
 
 package edu.uah.cs.lifeistough;
 
-
 /**
  * Player keeps track of the player's bank account, name, and the amount
  *     of shares owned.
@@ -28,6 +27,19 @@ public class Player {
         
         aName = playerName;
         ownedShares = new int[numberOfBusinesses];
+
+        // Initializes the player's bank account based on the difficulty
+        int startingBalance = 1000;
+        
+        if(aDifficulty == Difficulties.EASY) {
+            bank = (int) (startingBalance * 1.25);
+        }
+        else if(aDifficulty == Difficulties.HARD) {
+            bank = (int) (startingBalance * 0.75);
+        }
+        else {
+            bank = startingBalance;
+        }
     }
 
     //--------------------------------------------------------------------------

@@ -51,7 +51,6 @@ public class Expense {
      * @return The total number of bills the player must pay.
      */
     public int generateExpense(){
-        // i dont realy know what we want to return so this is just a placeholder 
         int generate = GameManager.RNG.nextInt(upperBound-lowerBound) + lowerBound;;
         
         return generate;
