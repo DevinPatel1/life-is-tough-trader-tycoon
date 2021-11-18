@@ -120,6 +120,15 @@ class StockScreen extends JPanel {
         
     }
 
+    private void openBusinessDescription() {
+
+        JOptionPane.showMessageDialog(this,
+            "" + BusinessSymbol.values()[busList.getSelectedIndex()] + "\n" + currentBusinessCopy.getDescription()
+                + "\n\nTags:\n           " + currentBusinessCopy.getTagsAsString(), "Business Details",
+            JOptionPane.PLAIN_MESSAGE);
+
+    }
+
     private void goToNewsScreen() {
         
     
@@ -178,15 +187,11 @@ class StockScreen extends JPanel {
  
  
     private void updateBusiness() {
-        try {
-            currentBusinessCopy = manager.getBusinessCopy(BusinessSymbol.values()[busList.getSelectedIndex()]);
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(StockScreen.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        currentBusinessCopy = manager.getBusinessCopy(BusinessSymbol.values()[busList.getSelectedIndex()]);
         
         valueOfInvestmentsField.setText("$" + 
                 (currentBusinessCopy.getPrice() 
-                * manager.getPlayerOwnedShares(busList.getSelectedIndex())));
+                * manager.getPlayerOwnedShares(BusinessSymbol.values()[busList.getSelectedIndex()])));
         currentSharePriceField.setText("$" + 
                 (currentBusinessCopy.getPrice()));
         prevSharePriceField.setText("$" + 
@@ -210,7 +215,7 @@ class StockScreen extends JPanel {
                 (100-(int)((float)currentBusinessCopy.getPreviousPrice()/(float)currentBusinessCopy.getPrice() * 100)) + "%");
         }
         
-        ownedSharesField.setText("" + manager.getPlayerOwnedShares(busList.getSelectedIndex()));
+        ownedSharesField.setText("" + manager.getPlayerOwnedShares(BusinessSymbol.values()[busList.getSelectedIndex()]));
         
         availSharesField.setText("" + 
                 (currentBusinessCopy.getSharesAvailable()));
