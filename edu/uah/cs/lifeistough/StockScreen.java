@@ -84,24 +84,12 @@ class StockScreen extends JPanel {
         
     }
     
-    private void updateBusiness() {
-        currentBusinessCopy = manager.getBusinessCopy(BusinessSymbol.values()[busList.getSelectedIndex()]);
-    }
-    
-    private void openBusinessDescription() {
-                
-        JOptionPane.showMessageDialog(this,
-            "" + BusinessSymbol.values()[busList.getSelectedIndex()] + "\n" + currentBusinessCopy.getDescription()
-                + "\n\nTags:\n           " + currentBusinessCopy.getTagsAsString(), "Business Details",
-            JOptionPane.PLAIN_MESSAGE);
-        
-    }
-    
     private void buyShare() {
         
         manager.buyShare(BusinessSymbol.values()[busList.getSelectedIndex()], (int) shareQuantity.getValue());
         
         updateBusiness();
+        updateBank();
         changeSpinner();
         
     }
@@ -111,6 +99,7 @@ class StockScreen extends JPanel {
         manager.sellShare(BusinessSymbol.values()[busList.getSelectedIndex()], (int) shareQuantity.getValue());
          
         updateBusiness();
+        updateBank();
         changeSpinner();
         
     }
@@ -124,6 +113,10 @@ class StockScreen extends JPanel {
     private void goToNextWeek() {
         
         manager.goToNextWeek();
+        updateBank();
+        updateBusiness();
+        updateWeek();
+        
         
     }
 
@@ -182,7 +175,64 @@ class StockScreen extends JPanel {
             bankLabel.setText("" + manager.getPlayerName() + "'s Bank Account:");
         }        
     }
+ 
+ 
+    private void updateBusiness() {
+        try {
+            currentBusinessCopy = manager.getBusinessCopy(BusinessSymbol.values()[busList.getSelectedIndex()]);
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(StockScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        valueOfInvestmentsField.setText("$" + 
+                (currentBusinessCopy.getPrice() 
+                * manager.getPlayerOwnedShares(busList.getSelectedIndex())));
+        currentSharePriceField.setText("$" + 
+                (currentBusinessCopy.getPrice()));
+        prevSharePriceField.setText("$" + 
+                (currentBusinessCopy.getPreviousPrice()));
+        
+        if(currentBusinessCopy.getPrice() - currentBusinessCopy.getPreviousPrice() > 0){
+            sharePriceChangeField.setText("+$" + 
+                (currentBusinessCopy.getPrice() - currentBusinessCopy.getPreviousPrice()));
+        }
+        else{
+            sharePriceChangeField.setText("-$" + 
+                Math.abs(currentBusinessCopy.getPrice() - currentBusinessCopy.getPreviousPrice()));
+        }
+        
+        if(currentBusinessCopy.getPrice() - currentBusinessCopy.getPreviousPrice() > 0){
+            percentSharePriceChangeField.setText("+" + 
+                ((int)((float)currentBusinessCopy.getPrice()/(float)currentBusinessCopy.getPreviousPrice()*100) - 100) + "%");
+        }
+        else{
+            percentSharePriceChangeField.setText("-" + 
+                (100-(int)((float)currentBusinessCopy.getPreviousPrice()/(float)currentBusinessCopy.getPrice() * 100)) + "%");
+        }
+        
+        ownedSharesField.setText("" + manager.getPlayerOwnedShares(busList.getSelectedIndex()));
+        
+        availSharesField.setText("" + 
+                (currentBusinessCopy.getSharesAvailable()));
+        
+    }
+ 
+ 
+    private void updateBank() {
+        if(manager.getPlayerBank() < 0){
+            
+            bankAccountField.setText("-$" + Math.abs(manager.getPlayerBank()));
+
+        }
+        else{
+            bankAccountField.setText("$" + manager.getPlayerBank());
+        }
+    }
     
+    private void updateWeek(){
+            weekNumberField.setText("" + manager.getWeekNumber());
+    }
+ 
     
     private void init(){
     
@@ -523,33 +573,6 @@ class StockScreen extends JPanel {
         
         stockPanel.add(percentSharePriceChangeField, constr);
         
-        //***
-        
-        valueOfInvestmentsLabel = new JLabel();
-        valueOfInvestmentsLabel.setText("Value of investments:");
-        
-        constr.gridx = 1;
-        constr.gridy = 1;
-        constr.gridwidth = 2;
-        constr.gridheight = 1;
-        constr.insets = new Insets(4, 4, 4, 4);
-        
-        stockPanel.add(valueOfInvestmentsLabel, constr);
-        
-        
-        valueOfInvestmentsField = new JTextField();
-        valueOfInvestmentsField.setBackground(Color.white);
-        valueOfInvestmentsField.setEditable(false);
-        valueOfInvestmentsField.setColumns(10);
-        valueOfInvestmentsField.setHorizontalAlignment(SwingConstants.RIGHT);
-        valueOfInvestmentsField.setText("$" + 
-                (currentBusinessCopy.getPrice() 
-                * manager.getPlayerOwnedShares(BusinessSymbol.values()[busList.getSelectedIndex()])));
-        
-        constr.gridx = 5;
-        
-        stockPanel.add(valueOfInvestmentsField, constr);
-                
         //***
         
         ownedSharesLabel = new JLabel();
