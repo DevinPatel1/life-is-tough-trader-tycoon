@@ -11,6 +11,9 @@ package edu.uah.cs.lifeistough;
 
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+import java.awt.event.WindowEvent;
+
 /**
  * Game Manager is the interface between the GUI system and the game logic system.
  * 
@@ -53,6 +56,7 @@ public class GameManager {
      * Initializes businesses and handlers based on the difficulty selected from the title screen.
      */
     public void startGame() {
+
         Difficulties difficulty = titleScreen.getDifficulty();
         
         // Initializes businesses array, each business in the array,
@@ -61,6 +65,8 @@ public class GameManager {
         initBusinesses();
         initHandlers(difficulty);
         player = new Player(titleScreen.getNameField(), difficulty, businesses.length);
+
+        stockScreen = new StockScreen(this);
 
         goToStockScreen();
     }
@@ -193,7 +199,6 @@ public class GameManager {
      * Sends the player to the stock screen.
      */
     public void goToStockScreen() {
-        stockScreen = new StockScreen(this);
         currentState = GameState.STOCK_SCREEN;
         updateScreen();
     }
@@ -223,6 +228,7 @@ public class GameManager {
         // Checks to see if there has been more than 3 weeks with negative bank balance
         if(weeksBelowZero >= 3) {
             endGame();
+            return;
         }
 
         // Generates expenses and news events and sends player to the weekly news screen
@@ -246,9 +252,6 @@ public class GameManager {
      * Sends the player to the title screen.
      */
     public void returnToTitleScreen() {
-        
-        //delete player?
-        
         currentState = GameState.TITLE_SCREEN;
         updateScreen();
     }
@@ -258,7 +261,17 @@ public class GameManager {
      * Ends the game by disposing of the JFrame
      */
     public void endGame() {
-        window.dispose();
+        
+        JOptionPane.showMessageDialog(window, "You Lose!", "Game Over", -1);
+
+        returnToTitleScreen();
+    }
+
+    /**
+     * Closes the game.
+     */
+    public void closeGame() {
+        window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
 
     // Updates business prices and fortunes whenever the player progresses to the next week

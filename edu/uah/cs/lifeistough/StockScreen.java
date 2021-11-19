@@ -111,12 +111,11 @@ class StockScreen extends JPanel {
     }
     
     private void goToNextWeek() {
-        
+
         manager.goToNextWeek();
         updateBank();
         updateBusiness();
         updateWeek();
-        
         
     }
 
@@ -156,8 +155,7 @@ class StockScreen extends JPanel {
         
         if( (int) shareQuantity.getValue() > currentBusinessCopy.getSharesAvailable() 
                 || (int) shareQuantity.getValue() * 
-                manager.getPlayerOwnedShares(BusinessSymbol.values()[busList.getSelectedIndex()]) 
-                > manager.getPlayerBank()){
+                currentBusinessCopy.getPrice() > manager.getPlayerBank()){
         
             buySharesButton.setEnabled(false);
             
