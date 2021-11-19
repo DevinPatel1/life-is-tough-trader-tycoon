@@ -138,11 +138,13 @@ public class NewsScreen extends JPanel
         newsPanel.add(newsTitle, BorderLayout.CENTER);
         
         // Sets the news description
-        newsDescription = new javax.swing.JTextArea();
+        newsDescription = new javax.swing.JTextArea(5, 20);
 
         newsDescription.setFont(new java.awt.Font("Tahoma", 0, 18));
         newsDescription.setText(event.getHeadline());
         newsDescription.setEditable(false);
+        newsDescription.setLineWrap(true);
+        newsDescription.setWrapStyleWord(true);
 
         newsDescription.setBackground(reddishBrown);
         newsDescription.setForeground(Color.WHITE);

@@ -33,7 +33,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 /**
- *
+ * This JPanel is responsible for displaying to the user all
+ *     of the stock information, including what they own and
+ *     what they can buy/sell. 
+ * 
  * @author Luke Farris
  * @author Corey Clayborn
  * @author Dominic Kenyon
@@ -76,6 +79,10 @@ class StockScreen extends JPanel {
     JSpinner shareQuantity;
     
     
+    /**
+     * Constructs the window. Adds a reference to the game manager.
+     * @param aManager Reference to the backend class GameManager
+     */
     public StockScreen(GameManager aManager){
         
         manager = aManager;
@@ -128,17 +135,14 @@ class StockScreen extends JPanel {
 
     }
 
-    private void goToNewsScreen() {
+    private void goToPreviousNewsScreen() {
         
-    
         manager.goToPreviousNewsScreen();
         
     }
     
 
-    /**
-     * Updates button availability based on whether the transaction would be possible.
-     */
+    //Updates button availability based on whether the transaction would be possible.
     private void changeSpinner() {
         
         if( (int) shareQuantity.getValue() 
@@ -352,7 +356,7 @@ class StockScreen extends JPanel {
         newsScreenButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                goToNewsScreen();
+                goToPreviousNewsScreen();
             }
             
         });

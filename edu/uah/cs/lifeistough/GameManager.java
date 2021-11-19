@@ -66,7 +66,7 @@ public class GameManager {
         initHandlers(difficulty);
         player = new Player(titleScreen.getNameField(), difficulty, businesses.length);
 
-        stockScreen = new StockScreen(this);
+        weekNumber = 0;
 
         goToStockScreen();
     }
@@ -199,6 +199,7 @@ public class GameManager {
      * Sends the player to the stock screen.
      */
     public void goToStockScreen() {
+        stockScreen = new StockScreen(this);
         currentState = GameState.STOCK_SCREEN;
         updateScreen();
     }
@@ -295,7 +296,7 @@ public class GameManager {
                     // Once a matching tag is found, the fortune is modified
                     if(bTag == eTag)
                     {
-                        businesses[i].updateFortune((float) event.generateModifier());
+                        businesses[i].updateFortune(event.generateModifier());
                         break outerloop;
                     }
                 }

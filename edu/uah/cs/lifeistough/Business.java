@@ -102,7 +102,15 @@ public class Business {
      */
     public void generateNewPrice(){
         previousPrice = currentPrice;
-        currentPrice += lowerBound + GameManager.RNG.nextInt(upperBound - lowerBound);
+
+        int priceChange = lowerBound + GameManager.RNG.nextInt(upperBound - lowerBound);
+
+        // Keeps the price from dipping below a certain level
+        if(currentPrice + priceChange < BASE_PRICE)
+        {
+            currentPrice = BASE_PRICE;
+        }
+        else currentPrice += priceChange;
     }
     
 
@@ -112,7 +120,7 @@ public class Business {
      * @see NewsEvent
      * @param fortuneModifier Generated from a News Event
      */
-    public void updateFortune(float fortuneModifier){
+    public void updateFortune(int fortuneModifier){
         fortune += fortuneModifier;
         
         upperBound += fortune;
@@ -178,4 +186,6 @@ public class Business {
     private final String description;
     
     private final Tags[] tags;
+
+    private final int BASE_PRICE = 20;
 }
