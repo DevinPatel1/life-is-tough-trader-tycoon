@@ -172,12 +172,8 @@ class StockScreen extends JPanel {
 
     }
     
-    /**
-     * When a new game is started, updates some fields like player name
-     * and (possibly added later) week number and even background color
-     * based on difficulty.
-     */
-    public void startStockScreen() {
+    // Sets bank account's name during BankLabel addition
+    private void checkPlayerName() {
         
         if(manager.getPlayerName().endsWith("s")){
             bankLabel.setText("" + manager.getPlayerName() + "' Bank Account:");
@@ -379,12 +375,9 @@ class StockScreen extends JPanel {
         JPanel bankPanel = new JPanel();
         
         bankLabel = new JLabel();
-        if(manager.getPlayerName().endsWith("s")){
-            bankLabel.setText("" + manager.getPlayerName() + "' Bank Account:");
-        }
-        else {
-            bankLabel.setText("" + manager.getPlayerName() + "' Bank Account:");
-        }
+
+        checkPlayerName();
+
         bankLabel.setAlignmentX(RIGHT_ALIGNMENT);
         
         bankPanel.add(bankLabel);
