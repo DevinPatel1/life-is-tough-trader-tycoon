@@ -128,8 +128,10 @@ class StockScreen extends JPanel {
 
     private void openBusinessDescription() {
 
+        String busName = manager.getBusinessName(BusinessSymbol.values()[busList.getSelectedIndex()]);
+
         JOptionPane.showMessageDialog(this,
-            "" + BusinessSymbol.values()[busList.getSelectedIndex()] + "\n" + currentBusinessCopy.getDescription()
+            "" + busName + "\n" + currentBusinessCopy.getDescription()
                 + "\n\nTags:\n           " + currentBusinessCopy.getTagsAsString(), "Business Details",
             JOptionPane.PLAIN_MESSAGE);
 

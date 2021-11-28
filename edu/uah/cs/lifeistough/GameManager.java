@@ -104,6 +104,15 @@ public class GameManager {
     public Business getBusinessCopy(BusinessSymbol symbol) {
         return businesses[symbol.index].clone();
     }
+
+    /**
+     * Accesses the name of the specified business.
+     * @param symbol The symbol of the business
+     * @return The name of the business
+     */
+    public String getBusinessName(BusinessSymbol symbol) {
+        return businesses[symbol.index].getName();
+    }
     
     /**
      * Accesses the number of weeks progressed in the game.

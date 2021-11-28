@@ -59,8 +59,8 @@ public class ExpenseHandler {
     private void addTemplateExpense(float factor){
         String reasonForExpense = "Expense name";
         
-        int lowerBound = Math.round(-100 * factor);
-        int upperBound = Math.round(-50 * factor);
+        int lowerBound = Math.round(-50 * factor);
+        int upperBound = Math.round(-25 * factor);
         
         Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
         expenses.add(expense);

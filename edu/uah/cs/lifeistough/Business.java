@@ -26,16 +26,16 @@ public class Business {
      * 
      * @param aName Name of the business
      * @param desc Description of the business
-     * @param firstPrice Initial price of the stock
+     * @param aCurrentPrice Initial price of the stock
      * @param totalShares Amount of shares available to buy
      * @param aTags Event tags associated with the business
      */
-    public Business(String aName, String desc, int firstPrice, int totalShares,
+    public Business(String aName, String desc, int aCurrentPrice, int totalShares,
                     Tags[] aTags) {
         name = aName;
         description = desc;
-        currentPrice = firstPrice;
-        previousPrice = firstPrice;
+        currentPrice = aCurrentPrice;
+        previousPrice = aCurrentPrice;
         sharesAvailable = totalShares;
         fortune = 0;
         lowerBound = -10;
@@ -137,6 +137,10 @@ public class Business {
         sharesAvailable += changeOfShares;
     }
 
+    // Used in cloning of a business object
+    private void setPreviousPrice(int aPreviousPrice){
+        previousPrice = aPreviousPrice;
+    }
 
     /**
      * Creates a deep copy of the business class.
@@ -150,6 +154,7 @@ public class Business {
         }
 
         Business clone = new Business(this.name, this.description, this.currentPrice, this.sharesAvailable, clonedTags);
+        clone.setPreviousPrice(this.previousPrice);
         return clone;
     }
 
