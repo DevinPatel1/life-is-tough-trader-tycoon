@@ -123,6 +123,7 @@ class StockScreen extends JPanel {
         updateBank();
         updateBusiness();
         updateWeek();
+        changeSpinner();
         
     }
 
