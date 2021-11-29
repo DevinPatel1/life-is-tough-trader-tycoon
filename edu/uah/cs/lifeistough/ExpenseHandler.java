@@ -63,8 +63,8 @@ public class ExpenseHandler {
     private void rent(float factor){
         String reasonForExpense = "it is time to pay rent!";
         
-        int lowerBound = Math.round(-10 * factor);
-        int upperBound = Math.round(-1 * factor);
+        int lowerBound = Math.round(-80 * factor);
+        int upperBound = Math.round(-50 * factor);
         
         Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
         expenses.add(expense);
@@ -74,8 +74,8 @@ public class ExpenseHandler {
     private void subscriptions(float factor){
         String reasonForExpense = "it's time to pay for those subscriptions you forgot about";
         
-        int lowerBound = Math.round(-10 * factor);
-        int upperBound = Math.round(-1 * factor);
+        int lowerBound = Math.round(-20 * factor);
+        int upperBound = Math.round(-5 * factor);
         
         Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
         expenses.add(expense);
@@ -84,8 +84,8 @@ public class ExpenseHandler {
     private void groceries(float factor){
         String reasonForExpense = "Your Fridge is empty looks like you need to go to the store!";
         
-        int lowerBound = Math.round(-10 * factor);
-        int upperBound = Math.round(-1 * factor);
+        int lowerBound = Math.round(-50 * factor);
+        int upperBound = Math.round(-20 * factor);
         
         Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
         expenses.add(expense);
@@ -94,8 +94,8 @@ public class ExpenseHandler {
        private void SpeedingTicket(float factor){
         String reasonForExpense = "you recieved a speeding fine SLOW DOWN!";
         
-        int lowerBound = Math.round(-10 * factor);
-        int upperBound = Math.round(-1 * factor);
+        int lowerBound = Math.round(-40 * factor);
+        int upperBound = Math.round(-20 * factor);
         
         Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
         expenses.add(expense);
@@ -104,8 +104,8 @@ public class ExpenseHandler {
     private void Doctorfee(float factor){
         String reasonForExpense = "its time for your yearly chekup!";
         
-        int lowerBound = Math.round(-10 * factor);
-        int upperBound = Math.round(-1 * factor);
+        int lowerBound = Math.round(-100 * factor);
+        int upperBound = Math.round(-70 * factor);
         
         Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
         expenses.add(expense);
@@ -114,8 +114,8 @@ public class ExpenseHandler {
     private void hospitalfees(float factor){
         String reasonForExpense = "the hospital sent you a bill for that flu shot.";
         
-        int lowerBound = Math.round(-10 * factor);
-        int upperBound = Math.round(-1 * factor);
+        int lowerBound = Math.round(-30 * factor);
+        int upperBound = Math.round(-20 * factor);
         
         Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
         expenses.add(expense);
@@ -124,8 +124,8 @@ public class ExpenseHandler {
     private void schoolfees(float factor){
         String reasonForExpense = "its time to pay for those student loans again!";
         
-        int lowerBound = Math.round(-10 * factor);
-        int upperBound = Math.round(-1 * factor);
+        int lowerBound = Math.round(-80 * factor);
+        int upperBound = Math.round(-50 * factor);
         
         Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
         expenses.add(expense);
