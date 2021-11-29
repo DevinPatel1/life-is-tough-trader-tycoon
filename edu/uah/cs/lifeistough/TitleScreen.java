@@ -27,7 +27,7 @@ import javax.swing.border.BevelBorder;
 /**
  * This JPanel is the first window that the player sees.
  * It allows the player to select a difficulty, enter their name,
- *     quit the game, view instructions, or start the game.
+ *     view instructions, start the game, or close the game.
  * 
  * @author Luke Farris
  */
@@ -93,7 +93,7 @@ public class TitleScreen extends JPanel{
     
     /**
      * Accesses the player's name specified in the name field.
-     * @return The name specified by the Player. If no name is specified, Player is used.
+     * @return The name specified by the Player. If no name is specified, 'Player' is used.
      */
     public String getNameField() {
         
@@ -114,13 +114,7 @@ public class TitleScreen extends JPanel{
         };
 
     }
-
-    public void restartTitle(){
-
-        while(nameField.getText().charAt(0) == ' ')
-            nameField.setText(nameField.getText().substring(1));
-
-    }
+    
     
     // Builds the title screen
     private void init(){
@@ -164,7 +158,7 @@ public class TitleScreen extends JPanel{
         difficultyPanel.add(difficultyLabel);
         
         
-        String difficulties[] = {"Easy", "Medium", "Hard"};
+        String difficulties[] = {"Easy", "Normal", "Hard"};
         difficultyBox = new javax.swing.JComboBox<String>(difficulties);
                 
         difficultyPanel.add(difficultyBox);

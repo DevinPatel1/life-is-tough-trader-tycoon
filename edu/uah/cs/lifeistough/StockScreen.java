@@ -696,6 +696,9 @@ class StockScreen extends JPanel {
         
         add(purchaseOptionsPanel, BorderLayout.LINE_END);
         
+
+
+        
         revalidate();
         repaint();
     }

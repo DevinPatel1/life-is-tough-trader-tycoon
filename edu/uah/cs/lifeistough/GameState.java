@@ -12,7 +12,7 @@ package edu.uah.cs.lifeistough;
 /**
  * The GameManager class needs to know which screen
  *     it is currently displaying to the player, so
- *     these symbols are being used to delineate
+ *     these values are being used to delineate
  *     which screen is being displayed.
  * 
  * @author Devin Patel

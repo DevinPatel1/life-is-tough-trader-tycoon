@@ -59,7 +59,7 @@ public class NewsEventHandler
     }
     
 
-    // Blizzard Event - Negtively affects Shipping, Grocery, Sports Bar, Food Delivery
+    // Blizzard - Negtively affects Shipping, Grocery, Sports Bar, Food Delivery
     private void addBlizzard(float factor)
     {
         String name = "Blizzard Blankets the US";
@@ -67,7 +67,7 @@ public class NewsEventHandler
                         + "The roads are too hazardous to drive on and everyone is forced to stay indoors.";
 
         int lowerBound = Math.round(-10 * factor);
-        int upperBound = Math.round(-1 * factor);
+        int upperBound = Math.round(-5 * factor);
         
         Tags[] tags = {Tags.AUTOMOTIVE, Tags.SOCIAL};
 
@@ -93,7 +93,7 @@ public class NewsEventHandler
     }
 
 
-    // Trade Embargo - Negatively affects all businesses except Shipping
+    // Food/Internet Embargo - Negatively affects all businesses except Shipping
     private void addTradeEmbargo(float factor)
     {
         String name = "Tradeland Mad at US";
@@ -127,7 +127,7 @@ public class NewsEventHandler
     }
 
 
-    // Discounted Trading Partner - Positively affects Grocery Store, Shipping, Streaming, Ecommcerce.
+    // Discounted Trading Partner - Positively affects Grocery Store, Shipping, Streaming, Ecommerce.
     private void addCheaperTrading(float factor)
     {
         String name = "New Trade Partner Gives Discounts";
@@ -148,8 +148,8 @@ public class NewsEventHandler
     private void addGovernmentSpying(float factor)
     {
         String name = "Whistleblower Reveals Government Spying on Citizens";
-        String headline = "An unknown man just leaked evidence that the government had been collecting tons of data on its citizens without their knowledge.\n"
-                        + "Everyone is now paranoid, and for once, they are putting their phones down for a while.";
+        String headline = "An anonymous government agent just leaked evidence that the government had been collecting tons of data on its citizens without their knowledge.\n"
+                        + "Everyone is now paranoid and are putting their phones down for a while.";
         
         int lowerBound = Math.round(-10 * factor);
         int upperBound = Math.round(-4 * factor);
@@ -185,8 +185,8 @@ public class NewsEventHandler
         String headline = "Biology researchers have finally discovered the copy/paste function, which has led to groundbreaking research in animal cloning.\n"
                         + "So much Ctrl + C and Ctrl + V pressing has led to sore fingers and a significant decrease in the price of meat.";
         
-        int lowerBound = Math.round(20 * factor);
-        int upperBound = Math.round(40 * factor);
+        int lowerBound = Math.round(10 * factor);
+        int upperBound = Math.round(20 * factor);
 
         Tags[] tags = {Tags.FOOD};
 

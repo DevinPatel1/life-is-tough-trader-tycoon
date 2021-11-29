@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import java.awt.event.WindowEvent;
 
 /**
- * Game Manager is the interface between the GUI system and the game logic system.
+ * Game Manager is the intermediary between the GUI system and the game logic system.
  * 
  * @author Luke Farris
  */
@@ -101,6 +101,7 @@ public class GameManager {
     
     /**
      * Generates a clone of the specified business.
+     * @see Business
      * @param symbol The symbol of the business
      * @return A copy of the business as a separate object
      */
@@ -127,24 +128,20 @@ public class GameManager {
     
     /**
      * Accesses the number of consecutive weeks the player has with a negative bank balance.
-     * @return Number of weeks in the negatives
+     * @return Number of consecutive weeks with a negative bank balance
      */
     public int checkWeeksBelowZero() {
         return weeksBelowZero;
     }
     
 
-    /**
-     * Returns the cost based on the number of shares bought/sold.
-     * @param symbol Stock symbol of the business
-     * @param numberOfShares Number of shares to be used in calculation
-     * @return Value of the shares
-     */
-    public int getCost(BusinessSymbol symbol, int numberOfShares) {
+    // Returns the cost based on the number of shares bought/sold.
+    private int getCost(BusinessSymbol symbol, int numberOfShares) {
+
         // Ensures the number of shares are positive
         numberOfShares = Math.abs(numberOfShares);
 
-        // Calculates cost of shares
+        // Calculates cost of shares based on the specified business's current price
         int totalCost = numberOfShares * businesses[symbol.index].getPrice();
 
         return totalCost;
@@ -158,6 +155,7 @@ public class GameManager {
      * @param cost
      */
     public void buyShare(BusinessSymbol symbol, int numberOfShares) {
+
         // Calculates the cost of shares to buy
         int totalCost = getCost(symbol, numberOfShares);
         
@@ -178,6 +176,7 @@ public class GameManager {
      * @param cost
      */
     public void sellShare(BusinessSymbol symbol, int numberOfShares) {
+
         // Calculates cost of shares being sold
         int totalCost = getCost(symbol, numberOfShares);
         
@@ -189,6 +188,7 @@ public class GameManager {
         businesses[symbol.index].changeSharesAvailable(numberOfShares);
     }
     
+
     // Sends the player to the News Screen
     private void goToNewsScreen(NewsEvent event, String aExpenseReason, int aExpenseAmount) {
         newsScreen = new NewsScreen(this, event, aExpenseReason, aExpenseAmount);
@@ -217,6 +217,15 @@ public class GameManager {
     
 
     /**
+     * Sends the player to the title screen.
+     */
+    public void returnToTitleScreen() {
+        currentState = GameState.TITLE_SCREEN;
+        updateScreen();
+    }
+
+
+    /**
      * Progresses the game to the next week. Business prices are recalculated,
      *     News Events generate business fortune modifiers, and expenses are
      *     applied to the player's bank account. This information is displayed
@@ -230,20 +239,20 @@ public class GameManager {
         weekNumber++;
 
         // Checks for negative bank balance, resets weeks below zero if not negative
-        if(getPlayerBank() < 0){
+        if(getPlayerBank() < 0) {
             weeksBelowZero++;
         }
         else {
             weeksBelowZero = 0;
         }
         
-        // Checks to see if there has been more than 3 weeks with negative bank balance
+        // Checks to see if there has been 3 weeks or more with negative bank balance
         if(weeksBelowZero >= 3) {
             endGame();
             return;
         }
 
-        // Generates expenses and news events and sends player to the weekly news screen
+        // Generates expenses and news events
         NewsEvent event = events.generateEvent();
         
         Expense expense = expenses.generateExpense();
@@ -260,17 +269,9 @@ public class GameManager {
         goToNewsScreen(event, expenseReason, expenseAmount);
     }
     
-    /**
-     * Sends the player to the title screen.
-     */
-    public void returnToTitleScreen() {
-        currentState = GameState.TITLE_SCREEN;
-        updateScreen();
-    }
-    
 
     /**
-     * Ends the game by disposing of the JFrame
+     * Ends the game by sending the player back to the title screen.
      */
     public void endGame() {
         
@@ -280,7 +281,7 @@ public class GameManager {
     }
 
     /**
-     * Closes the game.
+     * Closes the game upon activation from the TitleScreen 'Quit' button
      */
     public void closeGame() {
         window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));

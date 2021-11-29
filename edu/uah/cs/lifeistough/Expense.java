@@ -48,10 +48,10 @@ public class Expense {
 
     /**
      * Generates a value that will be subtracted from the player's bank account.
-     * @return The total number of bills the player must pay.
+     * @return The total amount in bills the player must pay.
      */
     public int generateExpense(){
-        int generate = GameManager.RNG.nextInt(upperBound-lowerBound) + lowerBound;;
+        int generate = GameManager.RNG.nextInt(upperBound-lowerBound) + lowerBound;
         
         return generate;
     }

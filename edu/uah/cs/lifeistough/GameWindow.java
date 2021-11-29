@@ -12,9 +12,9 @@ package edu.uah.cs.lifeistough;
 import javax.swing.JFrame;
 
 /**
- * This classes extends JFrame and will serve as the window
+ * This class extends JFrame and will serve as the window
  * that the user will interact with. All panels will be pushed
- * to this window as the player interacts with the interface.
+ * to this window as the player interacts with the GUI.
  * 
  * @author Luke Farris
  */
@@ -30,8 +30,6 @@ public class GameWindow extends JFrame {
         setSize(50, 50);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        //setResizable(false);
         manager = new GameManager(this);
-        //manager.UpdateScreen();
     }
 }

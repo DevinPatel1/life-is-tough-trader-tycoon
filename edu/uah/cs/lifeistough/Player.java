@@ -10,8 +10,8 @@
 package edu.uah.cs.lifeistough;
 
 /**
- * Player keeps track of the player's bank account, name, and the amount
- *     of shares owned.
+ * Player keeps track of the player's bank account, name,
+ *     and the amount of shares owned.
  * 
  * @author Ben Johnson
  */
@@ -26,19 +26,22 @@ public class Player {
     public Player(String aName, Difficulties aDifficulty, int numberOfBusinesses) {
         
         playerName = aName; //store param aName into variable playerName
-        ownedShares = new int[numberOfBusinesses]; //intialize ownedShares with an array of length of numberOfBusinesses
+        ownedShares = new int[numberOfBusinesses]; //intialize ownedShares
+
 
         // Initializes the player's bank account based on the difficulty
-        int startingBalance = 1000; // will be increased on Easy, stay the same on Medium, and decrease on Hard
+        int startingBalance = 1000; 
+
         
+        // Starting balance will be increased on Easy, stay the same on Normal, and decrease on Hard
         if(aDifficulty == Difficulties.EASY) {
-            bank = (int) (startingBalance * 1.25); //easy
+            bank = (int) (startingBalance * 1.25); //Easy
         }
         else if(aDifficulty == Difficulties.HARD) {
-            bank = (int) (startingBalance * 0.75); //hard
+            bank = (int) (startingBalance * 0.75); //Hard
         }
         else {
-            bank = startingBalance; //medium
+            bank = startingBalance; //Normal
         }
     }
 
@@ -69,7 +72,7 @@ public class Player {
 
     /**
      * Accesses the amount of shares the player owns of a particular business.
-     * @param stockSymbol Stock symbol of the business in question
+     * @param stockSymbol Stock symbol of the specified business
      * @return Amount of stocks owned by the player
      */
     public int getBusinessShares(BusinessSymbol stockSymbol) {
@@ -79,7 +82,7 @@ public class Player {
     
 
 
-    //Updating data methods
+    //Updating fields methods
     //--------------------------------------------------------------------------
 
     /**
@@ -103,10 +106,10 @@ public class Player {
     
 
     
-    //data
+    //fields
     //--------------------------------------------------------------------------
     private int bank; //balance of bank account
-    private String playerName;  //string the player entered
+    private String playerName;  //string the player entered on TitleScreen
     private int[] ownedShares; //how many shares of each business the player has
     //--------------------------------------------------------------------------
 }

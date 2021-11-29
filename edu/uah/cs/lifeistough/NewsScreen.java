@@ -167,7 +167,6 @@ public class NewsScreen extends JPanel
         weekNumberPanel.setLayout(new BorderLayout());
 
         weekNumberPanel.setBackground(reddishBrown);
-        //weekNumberPanel.setBorder(lineBorder);
         weekNumberPanel.setBorder(raisedEtched);
 
         weekNumber = new javax.swing.JLabel();
@@ -197,7 +196,6 @@ public class NewsScreen extends JPanel
         updatedPlayerBalancePanel.setLayout(new BorderLayout());
 
         updatedPlayerBalancePanel.setBackground(reddishBrown);
-        //updatedPlayerBalancePanel.setBorder(lineBorder);
         updatedPlayerBalancePanel.setBorder(raisedEtched);
 
 
@@ -228,7 +226,6 @@ public class NewsScreen extends JPanel
         expensePanel.setLayout(new GridBagLayout());
 
         expensePanel.setBackground(reddishBrown);
-        //expensePanel.setBorder(lineBorder);
         expensePanel.setBorder(raisedEtched);
         
         GridBagConstraints expenseConstraints = new GridBagConstraints();
@@ -313,10 +310,11 @@ public class NewsScreen extends JPanel
         continueButton.setBorder(raisedEtched);
         
         buttonPanel.setBackground(darkRed);
-        //buttonPanel.setBorder(new LineBorder(Color.BLACK, 3));
         
         buttonPanel.add(continueButton);
-        
+
+
+        // Adds button panel to News Screen
         constraints.gridx = 5;
         constraints.gridwidth = 1;
         constraints.gridy = 3;
@@ -327,6 +325,9 @@ public class NewsScreen extends JPanel
         
         add(buttonPanel, constraints);
         
+
+        
+        // Refreshes the screen
         revalidate();
         repaint();
     }
