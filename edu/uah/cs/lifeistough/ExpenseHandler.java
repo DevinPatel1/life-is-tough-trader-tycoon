@@ -37,10 +37,15 @@ public class ExpenseHandler {
             howdifficult = (float) 1.0;
         
         // add the expenses here what ever we decide 
-        addTemplateExpense(howdifficult);
-        
-        
-        
+
+        rent(howdifficult);
+        subscriptions(howdifficult);
+        subscriptions(howdifficult);
+        groceries(howdifficult);
+        SpeedingTicket(howdifficult);
+         Doctorfee(howdifficult);
+         hospitalfees(howdifficult);
+          schoolfees(howdifficult);
     }
     
     /**
@@ -54,21 +59,75 @@ public class ExpenseHandler {
     }
     
 
-
-    // Template Expense - The numbers -10 and -1 are base bounds for rng
-    private void addTemplateExpense(float factor){
-        String reasonForExpense = "Expense name";
+     //rent - The numbers -10 and -1 are base bounds for rng
+    private void rent(float factor){
+        String reasonForExpense = "it is time to pay rent!";
         
-        int lowerBound = Math.round(-50 * factor);
-        int upperBound = Math.round(-25 * factor);
+        int lowerBound = Math.round(-10 * factor);
+        int upperBound = Math.round(-1 * factor);
         
         Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
         expenses.add(expense);
     }
     
-    
-    
-    
-    
-    
+     //subscriptions - The numbers -10 and -1 are base bounds for rng
+    private void subscriptions(float factor){
+        String reasonForExpense = "it's time to pay for those subscriptions you forgot about";
+        
+        int lowerBound = Math.round(-10 * factor);
+        int upperBound = Math.round(-1 * factor);
+        
+        Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
+        expenses.add(expense);
+    }
+    //groceries - The numbers -10 and -1 are base bounds for rng
+    private void groceries(float factor){
+        String reasonForExpense = "Your Fridge is empty looks like you need to go to the store!";
+        
+        int lowerBound = Math.round(-10 * factor);
+        int upperBound = Math.round(-1 * factor);
+        
+        Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
+        expenses.add(expense);
+    }
+    //SpeedingTicket - The numbers -10 and -1 are base bounds for rng
+       private void SpeedingTicket(float factor){
+        String reasonForExpense = "you recieved a speeding fine SLOW DOWN!";
+        
+        int lowerBound = Math.round(-10 * factor);
+        int upperBound = Math.round(-1 * factor);
+        
+        Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
+        expenses.add(expense);
+    }
+       //Doctorfee - The numbers -10 and -1 are base bounds for rng
+    private void Doctorfee(float factor){
+        String reasonForExpense = "its time for your yearly chekup!";
+        
+        int lowerBound = Math.round(-10 * factor);
+        int upperBound = Math.round(-1 * factor);
+        
+        Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
+        expenses.add(expense);
+    }
+    //hospitalfees - The numbers -10 and -1 are base bounds for rng
+    private void hospitalfees(float factor){
+        String reasonForExpense = "the hospital sent you a bill for that flu shot.";
+        
+        int lowerBound = Math.round(-10 * factor);
+        int upperBound = Math.round(-1 * factor);
+        
+        Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
+        expenses.add(expense);
+    }
+    //schoolfees - The numbers -10 and -1 are base bounds for rng
+    private void schoolfees(float factor){
+        String reasonForExpense = "its time to pay for those student loans again!";
+        
+        int lowerBound = Math.round(-10 * factor);
+        int upperBound = Math.round(-1 * factor);
+        
+        Expense expense = new Expense(reasonForExpense,lowerBound,upperBound);
+        expenses.add(expense);
+    }
 }
