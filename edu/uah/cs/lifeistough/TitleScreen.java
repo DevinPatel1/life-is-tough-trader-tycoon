@@ -61,11 +61,15 @@ public class TitleScreen extends JPanel{
     
     // Upon selection, this creates a dialog box that displays instructions
     private void openInstructions() {
+
+        String message = "Keep buying and selling stocks until your finger drops! Press on the business \n" +
+        "you want to buy or sell and change the number ticker that is under the buy button. \n" +
+        "To get details on a business, press on the business you want to learn about and press details. \n" +
+        "When you are done buying and selling, press next week for the stocks to fluctuate. \n" +
+        "The losing condition is when the bank balance is negative for three weeks in \n" +
+        "a row, reguardless of how much money is in tied up in shares. Have Fun and Enjoy!!";
         
-        JOptionPane.showMessageDialog(this,
-        "To play the game, guess and press buttons \nrandomly until something"
-                + " good happens. Thanks!", "Instructions",
-        JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "Instructions", JOptionPane.PLAIN_MESSAGE);
         
     }
     
