@@ -221,6 +221,8 @@ class StockScreen extends JPanel {
         availSharesField.setText("" + 
                 (currentBusinessCopy.getSharesAvailable()));
         
+
+        changeSpinner();
     }
  
  
