@@ -135,9 +135,8 @@ public class TitleScreen extends JPanel{
         add(titleLabel, BorderLayout.PAGE_START);
         
         // Inputs logo.png
-        BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("edu\\uah\\cs\\lifeistough\\logo.png"));
+            BufferedImage img = ImageIO.read(new File("edu\\uah\\cs\\lifeistough\\logo.png"));
             imageLabel.setIcon(new javax.swing.ImageIcon(img));
             add(imageLabel, BorderLayout.LINE_START);
         } catch (IOException e) {
