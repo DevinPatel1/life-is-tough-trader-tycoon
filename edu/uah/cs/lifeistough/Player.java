@@ -19,26 +19,26 @@ public class Player {
     
     /**
      * Constructs the player's bank account. The initial amount is 
-     * @param aName
-     * @param aDifficulty
-     * @param numberOfBusinesses
+     * @param aName stores the name of the player
+     * @param aDifficulty stores the difficulty the player choose
+     * @param numberOfBusinesses stores an int of how many businesses we are using
      */
     public Player(String aName, Difficulties aDifficulty, int numberOfBusinesses) {
         
-        playerName = aName;
-        ownedShares = new int[numberOfBusinesses];
+        playerName = aName; //store param aName into variable playerName
+        ownedShares = new int[numberOfBusinesses]; //intialize ownedShares with an array of length of numberOfBusinesses
 
         // Initializes the player's bank account based on the difficulty
-        int startingBalance = 1000;
+        int startingBalance = 1000; // will be increased on Easy, stay the same on Medium, and decrease on Hard
         
         if(aDifficulty == Difficulties.EASY) {
-            bank = (int) (startingBalance * 1.25);
+            bank = (int) (startingBalance * 1.25); //easy
         }
         else if(aDifficulty == Difficulties.HARD) {
-            bank = (int) (startingBalance * 0.75);
+            bank = (int) (startingBalance * 0.75); //hard
         }
         else {
-            bank = startingBalance;
+            bank = startingBalance; //medium
         }
     }
 
@@ -105,8 +105,8 @@ public class Player {
     
     //data
     //--------------------------------------------------------------------------
-    private int bank;
-    private String playerName;
-    private int[] ownedShares;
+    private int bank; //balance of bank account
+    private String playerName;  //string the player entered
+    private int[] ownedShares; //how many shares of each business the player has
     //--------------------------------------------------------------------------
 }
