@@ -123,6 +123,7 @@ class StockScreen extends JPanel {
         updateBank();
         updateBusiness();
         updateWeek();
+        changeSpinner();
         
     }
 
@@ -220,6 +221,8 @@ class StockScreen extends JPanel {
         availSharesField.setText("" + 
                 (currentBusinessCopy.getSharesAvailable()));
         
+
+        changeSpinner();
     }
  
  

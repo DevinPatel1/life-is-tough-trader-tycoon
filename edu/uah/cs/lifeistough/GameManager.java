@@ -66,8 +66,11 @@ public class GameManager {
         initHandlers(difficulty);
         player = new Player(titleScreen.getNameField(), difficulty, businesses.length);
 
+        
         weekNumber = 0;
-
+        
+        stockScreen = new StockScreen(this);
+        
         goToStockScreen();
     }
     
@@ -208,7 +211,6 @@ public class GameManager {
      * Sends the player to the stock screen.
      */
     public void goToStockScreen() {
-        stockScreen = new StockScreen(this);
         currentState = GameState.STOCK_SCREEN;
         updateScreen();
     }
