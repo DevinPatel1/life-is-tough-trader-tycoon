@@ -84,5 +84,5 @@ public class NewsEvent
      * Accesses the affected tags of the event.
      * @return Tags of the event
      */
-    public Tags[] getTags() { return tags; }
+    public Tags[] getTags() { return tags.clone(); }
 }

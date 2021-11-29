@@ -19,7 +19,7 @@ package edu.uah.cs.lifeistough;
  * 
  * @author Dominic Kenyon
  */
-public class Business {
+public class Business implements Cloneable {
 
     /**
      * Constructs each business.
@@ -93,7 +93,7 @@ public class Business {
      * @return Tags of the business
      */
     public Tags[] getTags(){
-        return tags;
+        return tags.clone();
     }
     
 
@@ -106,9 +106,9 @@ public class Business {
         int priceChange = lowerBound + GameManager.RNG.nextInt(upperBound - lowerBound);
 
         // Keeps the price from dipping below a certain level
-        if(currentPrice + priceChange < BASE_PRICE)
+        if(currentPrice + priceChange < Business.BASE_PRICE)
         {
-            currentPrice = BASE_PRICE;
+            currentPrice = Business.BASE_PRICE;
         }
         else currentPrice += priceChange;
     }
@@ -192,5 +192,5 @@ public class Business {
     
     private final Tags[] tags;
 
-    private final int BASE_PRICE = 20;
+    private static final int BASE_PRICE = 20;
 }

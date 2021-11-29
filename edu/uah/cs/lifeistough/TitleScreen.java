@@ -36,7 +36,7 @@ public class TitleScreen extends JPanel{
     private final GameManager manager;
     
     private javax.swing.JLabel imageLabel;
-    private javax.swing.JLabel TitleLabel;
+    private javax.swing.JLabel titleLabel;
     
     private javax.swing.JLabel difficultyLabel;
     private javax.swing.JComboBox<String> difficultyBox;
@@ -127,23 +127,23 @@ public class TitleScreen extends JPanel{
         // Sets the title of the game and the image
 
         imageLabel = new javax.swing.JLabel();
-        TitleLabel = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
         
         
-        TitleLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); 
-        TitleLabel.setText("Life is Tough: Trader Tycoon");
-        add(TitleLabel, BorderLayout.PAGE_START);
+        titleLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); 
+        titleLabel.setText("Life is Tough: Trader Tycoon");
+        add(titleLabel, BorderLayout.PAGE_START);
         
         // Inputs logo.png
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("edu\\uah\\cs\\lifeistough\\logo.png"));
+            imageLabel.setIcon(new javax.swing.ImageIcon(img));
+            add(imageLabel, BorderLayout.LINE_START);
         } catch (IOException e) {
             
         }       
         
-        imageLabel.setIcon(new javax.swing.ImageIcon(img));
-        add(imageLabel, BorderLayout.LINE_START);
         
         //********************************************************
         // Sets the difficulty drop-down select field
