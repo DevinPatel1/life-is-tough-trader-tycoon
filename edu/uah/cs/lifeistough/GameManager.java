@@ -37,7 +37,7 @@ public class GameManager {
     private int weekNumber;
     private int weeksBelowZero;
     
-    public static final Random RNG = new Random();
+    public static final Random RNG = new Random(System.nanoTime());
     
     /**
      * Initializes the title screen and keeps a reference to the JFrame window.
