@@ -7,7 +7,7 @@
 * Description: See Javadoc comment below
 */
 
-package stocksimdownloaded;
+package edu.uah.cs.lifeistough;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
