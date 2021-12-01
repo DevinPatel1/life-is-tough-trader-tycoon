@@ -84,7 +84,8 @@ public class TitleScreen extends JPanel{
     // Upon selection, this closes the game window.
     private void closeGame() {
         
-        if(JOptionPane.showConfirmDialog(this, "Are you sure you want to quit?", "End Game", 0, 1) == 0) {
+        if(JOptionPane.showConfirmDialog(this, "Are you sure you want to quit?", 
+                "End Game", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {   
             manager.closeGame();
         }
         else return;
