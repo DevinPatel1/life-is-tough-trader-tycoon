@@ -175,30 +175,10 @@ class StockScreen extends JPanel {
      */
     private void returnToTitleScreen() {
         
-        // Within the if statement, a dialog box is created. This dialog box is a
-        // confirm dialog, meaning it will return an integer value depending
-        // on the button the user chooses. The parameters for this dialog box
-        // are as follows:
-        //**********************************************************************
-        //JOptionPane.showConfirmDialog(Component parentComponent, Object message, String title, int optionType, int messageType)
-        //  parentComponent: the frame the dialog box is displayed in
-        //      is set to 'this' so that the dialog box appears in and disables the stockScreen until resolved
-        //  message: the string that prompts the user for input
-        //      is set to the simple message "Are you sure you want to quit?"
-        //  title: the title of the dialog box created, is set to "End Game"
-        //  optionType: this parameter determines the options the dialog will
-        //      present the user. Being set to YES_NO_OPTION means the dialog box
-        //      will present the user a yes and no option. If the yes option
-        //      is selected, a 0 is returned. If the no option is chosen, a 1
-        //      is returned. If the dialog is closed, the CLOSED_OPTION constant
-        //      is returned. 
-        //  messageType: this parameter determines the default icon that is displayed
-        //      by the dialog box. The QUESTION_MESSAGE constant means a green
-        //      question mark is displayed.
-        //**********************************************************************
         // The if statement checks if the dialog box's return value is 0,
         // meaning yes was chosen. If so, the game transitions to the title
-        // screen using a call to the game manager. Otherwise, nothing happens. 
+        // screen using a call to the game manager. Otherwise, nothing happens.
+        
         if(JOptionPane.showConfirmDialog(this, "Are you sure you want to quit?", 
                 "End Game", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
             manager.returnToTitleScreen();
@@ -227,17 +207,6 @@ class StockScreen extends JPanel {
         // Set var busName equal to the selected business' name (selected in the busList).
         String busName = manager.getBusinessName(BusinessSymbol.values()[busList.getSelectedIndex()]);
 
-        // Create a dialog box with the following paramters:
-        //**********************************************************************
-        //showMessageDialog(Component parentComponent, Object message, String title, int messageType)
-        //  parentComponent: the frame the dialog box is displayed in
-        //      is set to 'this' so that the dialog box appears in and disables the stockScreen until resolved
-        //  message: the string that is displayed by the dialog,
-        //      is constructed as described below
-        //  title: the title of the dialog box created, is set to "Business Details"
-        //  messageType: this parameter determines the default icon that is displayed
-        //      by the dialog box. The PLAIN_MESSAGE causes the dialog to have
-        //      no symbol displayed with the message.
         
         JOptionPane.showMessageDialog(this,
             "" + busName + "\n" + currentBusinessCopy.getDescription()
