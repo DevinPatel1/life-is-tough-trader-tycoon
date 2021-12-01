@@ -59,7 +59,7 @@ public class ExpenseHandler {
     }
     
 
-     //rent - The numbers -10 and -1 are base bounds for rng
+     //rent - The numbers -80 and -50 are base bounds for rng used to scale the prices to a more realistic value
     private void rent(float factor){
         String reasonForExpense = "it is time to pay rent!";
         
@@ -71,8 +71,8 @@ public class ExpenseHandler {
     }
     
 
-     //subscriptions - The numbers -10 and -1 are base bounds for rng
-    private void subscriptions(float factor){
+ //subscriptions - The numbers -20 and -5 are base bounds for rng used to scale the prices to a more realistic value
+     private void subscriptions(float factor){
         String reasonForExpense = "it's time to pay for those subscriptions you forgot about";
         
         int lowerBound = Math.round(-20 * factor);
@@ -83,8 +83,8 @@ public class ExpenseHandler {
     }
 
 
-    //groceries - The numbers -10 and -1 are base bounds for rng
-    private void groceries(float factor){
+ //groceries - The numbers -50 and -20 are base bounds for rng used to scale the prices to a more realistic value
+     private void groceries(float factor){
         String reasonForExpense = "Your Fridge is empty looks like you need to go to the store!";
         
         int lowerBound = Math.round(-50 * factor);
@@ -95,8 +95,8 @@ public class ExpenseHandler {
     }
 
 
-    //SpeedingTicket - The numbers -10 and -1 are base bounds for rng
-       private void SpeedingTicket(float factor){
+ //SpeedingTicket - The numbers -40 and -20 are base bounds for rng used to scale the prices to a more realistic value
+        private void SpeedingTicket(float factor){
         String reasonForExpense = "you recieved a speeding fine SLOW DOWN!";
         
         int lowerBound = Math.round(-40 * factor);
@@ -107,8 +107,8 @@ public class ExpenseHandler {
     }
 
 
-    //Doctorfee - The numbers -10 and -1 are base bounds for rng
-    private void Doctorfee(float factor){
+ //Doctorfee - The numbers -100 and -70 are base bounds for rng used to scale the prices to a more realistic value
+     private void Doctorfee(float factor){
         String reasonForExpense = "its time for your yearly chekup!";
         
         int lowerBound = Math.round(-100 * factor);
@@ -119,8 +119,8 @@ public class ExpenseHandler {
     }
 
     
-    //hospitalfees - The numbers -10 and -1 are base bounds for rng
-    private void hospitalfees(float factor){
+ //hospitalfees - The numbers -30 and -20 are base bounds for rng used to scale the prices to a more realistic value
+     private void hospitalfees(float factor){
         String reasonForExpense = "the hospital sent you a bill for that flu shot.";
         
         int lowerBound = Math.round(-30 * factor);
@@ -131,8 +131,8 @@ public class ExpenseHandler {
     }
 
     
-    //schoolfees - The numbers -10 and -1 are base bounds for rng
-    private void schoolfees(float factor){
+ //schoolfees - The numbers -80 and -50 are base bounds for rng used to scale the prices to a more realistic value
+     private void schoolfees(float factor){
         String reasonForExpense = "its time to pay for those student loans again!";
         
         int lowerBound = Math.round(-80 * factor);
